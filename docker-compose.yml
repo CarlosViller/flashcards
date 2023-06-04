@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  database:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "5h65BrWPhfAvAiuKKF"
+      POSTGRES_USER: "delta"
+      POSTGRES_DB: "flashcards"
+
+  cache:
+    image: "redis"
+    ports:
+      - "6379:6379"
