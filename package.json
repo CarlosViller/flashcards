@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "prisma": {
-    "schema": "./src/backend/prisma/schema.prisma"
+    "schema": "./src/backend/prisma/schema.prisma",
+    "seed": "ts-node ./src/backend/prisma/seed.ts"
   },
   "scripts": {
     "dev": "next dev",
@@ -12,7 +13,9 @@
     "lint": "next lint",
     "services:up": "docker compose up -d",
     "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "db:reset": "prisma migrate reset",
+    "db:seed": "prisma db seed",
+    "db:web": "prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
