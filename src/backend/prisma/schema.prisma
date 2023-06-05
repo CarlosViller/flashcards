@@ -4,5 +4,21 @@ datasource db {
 }
 
 model Card {
-  id Int @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
+  question String
+  anwser   String
+  boxId    Int
+  box      CardBox @relation(fields: [boxId], references: [id])
+}
+
+model CardBox {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+  cards  Card[]
+}
+
+model User {
+  id    Int       @id @default(autoincrement())
+  boxes CardBox[]
 }
