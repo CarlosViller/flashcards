@@ -10,7 +10,7 @@ datasource db {
 model Card {
   id       Int     @id @default(autoincrement())
   question String
-  anwser   String
+  answer   String
   boxId    Int
   box      CardBox @relation(fields: [boxId], references: [id])
 }
@@ -24,5 +24,6 @@ model CardBox {
 
 model User {
   id    Int       @id @default(autoincrement())
+  email String    @unique
   boxes CardBox[]
 }
