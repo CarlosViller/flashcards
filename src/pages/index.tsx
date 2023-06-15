@@ -1,22 +1,19 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession } from "next-auth/react";
 
-export default function Component() {
-  const { data: session } = useSession()
+import Home from "@/components/Home";
+import Login from "@/components/Login";
+import LoadingSpinner from "@/components/Spinner";
 
-  console.log(session)
-  
-  if (session) {
-    return (
-      <>
-        Signed in as {session.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    )
+export default function Root() {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <LoadingSpinner />;
   }
-  return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn("google")}>Sign in</button>
-    </>
-  )
+
+  if (session) {
+    return <Home />;
+  }
+
+  return <Login />;
 }
