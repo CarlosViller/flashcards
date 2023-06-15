@@ -1,8 +1,7 @@
 import { useSession } from "next-auth/react";
-
-import Home from "@/components/Home";
 import Login from "@/components/Login";
 import LoadingSpinner from "@/components/Spinner";
+import Home from "@/components/Home";
 
 export default function Root() {
   const { data: session, status } = useSession();
