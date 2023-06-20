@@ -38,8 +38,26 @@ export default function CardRoll({
     setCurrentCard(current);
   };
 
+  const deleteCard = () => {
+    setCards((prevCards) => {
+      if (cards.length === currentCard + 1) {
+        setCurrentCard((prevCurrent) => prevCurrent - 1);
+      }
+      const newCards = prevCards.filter((_, index) => index !== currentCard);
+      return newCards;
+    });
+  };
+
   return (
-    <div className="flex gap-4 justify-center items-center">
+    <div className="flex gap-4 justify-center items-center relative py-4">
+      {cards.length > 1 && (
+        <button
+          onClick={deleteCard}
+          className="material-symbols-outlined scale-150 text-red-600 absolute top-0 right-0"
+        >
+          close
+        </button>
+      )}
       <button
         className="material-symbols-outlined nav-card-button"
         onClick={goPrev}
