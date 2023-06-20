@@ -3,7 +3,7 @@ import { AppProps } from "next/app";
 import "../../public/global.css";
 import { Baloo_2 } from "next/font/google";
 import { Suspense } from "react";
-import Loading from "@/components/Loading";
+import Loading from "@/components/shared/Loading";
 
 const baloo_2 = Baloo_2({ subsets: ["latin"] });
 

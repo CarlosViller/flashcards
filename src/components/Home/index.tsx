@@ -1,5 +1,4 @@
-import { signOut } from "next-auth/react";
-import Header from "../Header";
+import Header from "../shared/Header";
 
 export default function Home() {
   return (

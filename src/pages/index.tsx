@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
-import LoadingSpinner from "@/components/Spinner";
+import LoadingSpinner from "@/components/shared/Spinner";
 import Home from "@/components/Home";
 
 export default function Root() {
