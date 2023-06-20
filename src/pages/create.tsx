@@ -20,22 +20,26 @@ export default function CreateBox() {
   return (
     <div className="flex flex-col gap-2">
       <Header />
-      <h2>Name of the box</h2>
-      <Input value={boxName} setValue={setBoxName} />
-      <CardRoll
-        setCards={setCards}
-        currentCard={currentCard}
-        setCurrentCard={setCurrentCard}
-        cards={cards}
-        flip={flip}
-      />
-      <div>
-        <button
-          onClick={flipCard}
-          className=" rounded bg-green_primary px-3 py-1 text-white"
-        >
-          Flip
-        </button>
+      <div className="container flex flex-col items-center mx-auto gap-6">
+        <div className="text-center">
+          <h2>Name of the box</h2>
+          <Input value={boxName} setValue={setBoxName} />
+        </div>
+        <CardRoll
+          setCards={setCards}
+          currentCard={currentCard}
+          setCurrentCard={setCurrentCard}
+          cards={cards}
+          flip={flip}
+        />
+        <div>
+          <button
+            onClick={flipCard}
+            className=" rounded bg-green_primary px-3 py-1 text-white"
+          >
+            Flip
+          </button>
+        </div>
       </div>
     </div>
   );

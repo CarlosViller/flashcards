@@ -39,13 +39,19 @@ export default function CardRoll({
   };
 
   return (
-    <div className="flex">
-      <button onClick={goPrev}>
-        <span className="material-symbols-outlined nav-card-button">navigate_before</span>
+    <div className="flex gap-4 justify-center items-center">
+      <button
+        className="material-symbols-outlined nav-card-button"
+        onClick={goPrev}
+      >
+        navigate_before
       </button>
       <EditableCard card={cards[currentCard]} flip={flip} />
-      <button onClick={goNext}>
-        <span className="material-symbols-outlined nav-card-button">navigate_next</span>
+      <button
+        className="material-symbols-outlined nav-card-button"
+        onClick={goNext}
+      >
+        navigate_next
       </button>
     </div>
   );

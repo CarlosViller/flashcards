@@ -39,7 +39,7 @@ html {
 
 .nav-card-button {
   transition: all .2s ease-in-out;
-  transform: scale(1.5);
+  transform: scale(2.5);
 }
 
 .nav-card-button:hover {
