@@ -4,6 +4,7 @@ import "../../public/global.css";
 import { Baloo_2 } from "next/font/google";
 import { Suspense } from "react";
 import Loading from "@/components/shared/Loading";
+import Head from "next/head";
 
 const baloo_2 = Baloo_2({ subsets: ["latin"] });
 
@@ -15,6 +16,9 @@ export default function App({
     <SessionProvider session={session}>
       <main className={baloo_2.className}>
         <Suspense fallback={<Loading />}>
+          <Head>
+            <title>Kartu - Create your own flashcards</title>
+          </Head>
           <Component {...pageProps} />
         </Suspense>
       </main>
