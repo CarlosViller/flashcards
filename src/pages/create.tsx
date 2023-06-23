@@ -13,12 +13,13 @@ export default function CreateBox() {
   const [cards, setCards] = useState<Array<NewCard>>([
     { question: "placeholder", answer: "holderplace" },
   ]);
-  const [currentCard, setCurrentCard] = useState(0);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [flip, setFlip] = useState(false);
+
   const flipCard = () => setFlip((prevState) => !prevState);
 
   return (
-    <div className="flex flex-col gap-2">
+    <main className="flex flex-col gap-2">
       <Header />
       <div className="container flex flex-col items-center mx-auto gap-6">
         <div className="text-center">
@@ -27,8 +28,8 @@ export default function CreateBox() {
         </div>
         <CardRoll
           setCards={setCards}
-          currentCard={currentCard}
-          setCurrentCard={setCurrentCard}
+          currentCardIndex={currentCardIndex}
+          setCurrentCardIndex={setCurrentCardIndex}
           cards={cards}
           flip={flip}
         />
@@ -41,7 +42,7 @@ export default function CreateBox() {
           </button>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

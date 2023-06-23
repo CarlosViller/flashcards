@@ -1,32 +1,34 @@
 import { NewCard } from "@/pages/create";
 import EditableCard from "./EditableCard";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 type Props = {
   cards: NewCard[];
   flip: boolean;
-  currentCard: number;
-  setCurrentCard: React.Dispatch<React.SetStateAction<number>>;
+  currentCardIndex: number;
+  setCurrentCardIndex: React.Dispatch<React.SetStateAction<number>>;
   setCards: React.Dispatch<React.SetStateAction<Array<NewCard>>>;
 };
+
+const MAX_CARDS = 10;
 
 export default function CardRoll({
   cards,
   flip,
-  currentCard,
-  setCurrentCard,
+  currentCardIndex,
+  setCurrentCardIndex,
   setCards,
 }: Props) {
+  const currentCard = useMemo(() => currentCardIndex + 1, [currentCardIndex]);
+
   const goPrev = () =>
-    setCurrentCard((prevPosition) => {
+    setCurrentCardIndex((prevPosition) => {
       const current = prevPosition - 1;
       return current > 0 ? current : 0;
     });
 
   const goNext = () => {
-    const current = currentCard + 1;
-
-    if (!cards[current]) {
+    if (!cards[currentCard]) {
       setCards((prevCards) => [
         ...prevCards,
         {
@@ -35,42 +37,50 @@ export default function CardRoll({
         },
       ]);
     }
-    setCurrentCard(current);
+    setCurrentCardIndex(currentCardIndex + 1);
   };
 
   const deleteCard = () => {
     setCards((prevCards) => {
-      if (cards.length === currentCard + 1) {
-        setCurrentCard((prevCurrent) => prevCurrent - 1);
+      if (cards.length === currentCard) {
+        setCurrentCardIndex((prevCurrent) => prevCurrent - 1);
       }
-      const newCards = prevCards.filter((_, index) => index !== currentCard);
+      const newCards = prevCards.filter(
+        (_, index) => index !== currentCardIndex
+      );
       return newCards;
     });
   };
 
   return (
-    <div className="flex gap-4 justify-center items-center relative py-4">
-      {cards.length > 1 && (
+    <div>
+      <div className="flex gap-4 justify-center items-center relative py-2">
+        {cards.length > 1 && (
+          <button
+            onClick={deleteCard}
+            className="material-symbols-outlined scale-150 text-red-600 absolute top-0 right-0"
+          >
+            close
+          </button>
+        )}
         <button
-          onClick={deleteCard}
-          className="material-symbols-outlined scale-150 text-red-600 absolute top-0 right-0"
+          className="material-symbols-outlined nav-card-button disabled:text-gray-300"
+          onClick={goPrev}
+          // Disable goPrev button if currentCard is the first of list
+          disabled={currentCard === 1}
         >
-          close
+          navigate_before
         </button>
-      )}
-      <button
-        className="material-symbols-outlined nav-card-button"
-        onClick={goPrev}
-      >
-        navigate_before
-      </button>
-      <EditableCard card={cards[currentCard]} flip={flip} />
-      <button
-        className="material-symbols-outlined nav-card-button"
-        onClick={goNext}
-      >
-        navigate_next
-      </button>
+        <EditableCard card={cards[currentCardIndex]} flip={flip} />
+        <button
+          className="material-symbols-outlined nav-card-button disabled:text-gray-300"
+          onClick={goNext}
+          disabled={currentCard === MAX_CARDS}
+        >
+          navigate_next
+        </button>
+      </div>
+      <p className="text-center">{`${cards.length}/${MAX_CARDS}`}</p>
     </div>
   );
 }
