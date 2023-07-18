@@ -19,9 +19,9 @@ export default function CreateBox() {
   const flipCard = () => setFlip((prevState) => !prevState);
 
   return (
-    <main className="flex flex-col gap-2">
+    <>
       <Header />
-      <div className="container flex flex-col items-center mx-auto gap-6">
+      <main className="container flex flex-col items-center mx-auto gap-6 mt-10">
         <div className="text-center">
           <h2>Name of the box</h2>
           <Input value={boxName} setValue={setBoxName} />
@@ -41,8 +41,8 @@ export default function CreateBox() {
             Flip
           </button>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
 
