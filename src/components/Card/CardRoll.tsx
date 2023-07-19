@@ -1,6 +1,12 @@
-import { NewCard } from "@/pages/create";
 import EditableCard from "./EditableCard";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClose,
+  faArrowLeft,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { NewCard } from "@/pages/create";
 
 type Props = {
   cards: NewCard[];
@@ -56,28 +62,33 @@ export default function CardRoll({
     <div>
       <div className="flex gap-4 justify-center items-center relative py-2">
         {cards.length > 1 && (
-          <button
-            onClick={deleteCard}
-            className="material-symbols-outlined scale-150 text-red-600 absolute top-0 right-0"
-          >
-            close
+          <button onClick={deleteCard} className=" absolute top-0 right-0">
+            <FontAwesomeIcon
+              icon={faClose}
+              className="text-red-600"
+              size="2x"
+            />
           </button>
         )}
         <button
-          className="material-symbols-outlined nav-card-button disabled:text-gray-300"
+          className="nav-card-button disabled:text-gray-300 text-black"
           onClick={goPrev}
           // Disable goPrev button if currentCard is the first of list
           disabled={currentCard === 1}
         >
-          navigate_before
+          <FontAwesomeIcon icon={faArrowLeft} className="text-inherit" />
         </button>
         <EditableCard card={cards[currentCardIndex]} flip={flip} />
         <button
-          className="material-symbols-outlined nav-card-button disabled:text-gray-300"
+          className="nav-card-button disabled:text-gray-300 text-black"
           onClick={goNext}
           disabled={currentCard === MAX_CARDS}
         >
-          navigate_next
+          <FontAwesomeIcon
+            icon={faArrowRight}
+            className="text-inherit"
+            size="1x"
+          />
         </button>
       </div>
       <p className="text-center">{`${cards.length}/${MAX_CARDS}`}</p>

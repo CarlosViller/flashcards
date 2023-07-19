@@ -14,11 +14,11 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
+      <Head>
+        <title>Kartu - Create your own flashcards</title>
+      </Head>
       <main className={baloo_2.className}>
         <Suspense fallback={<Loading />}>
-          <Head>
-            <title>Kartu - Create your own flashcards</title>
-          </Head>
           <Component {...pageProps} />
         </Suspense>
       </main>

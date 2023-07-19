@@ -8,6 +8,7 @@ async function main() {
       email: "alice@prisma.io",
       boxes: {
         create: {
+          boxName: "Test box",
           cards: {
             create: [
               {

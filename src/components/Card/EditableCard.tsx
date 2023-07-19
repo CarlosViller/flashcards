@@ -21,7 +21,7 @@ export default function EditableCard({ card, flip }: Props) {
       <div
         ref={cardRef}
         className={`border-2 rounded flex min-w-[550px] min-h-[280px] items-center justify-center max-w-lg py-3 ${
-          flip ? "border-green_primary" : ""
+          flip ? "border-primary" : ""
         }`}
       >
         {flip ? card.answer : card.question}

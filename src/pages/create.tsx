@@ -1,6 +1,8 @@
 import CardRoll from "@/components/Card/CardRoll";
 import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export type NewCard = {
@@ -9,19 +11,23 @@ export type NewCard = {
 };
 
 export default function CreateBox() {
+  const router = useRouter();
+
   const [boxName, setBoxName] = useState("");
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [flip, setFlip] = useState(false);
   const [cards, setCards] = useState<Array<NewCard>>([
     { question: "placeholder", answer: "holderplace" },
   ]);
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [flip, setFlip] = useState(false);
 
   const flipCard = () => setFlip((prevState) => !prevState);
+
+  const { data: session } = useSession();
 
   return (
     <>
       <Header />
-      <main className="container flex flex-col items-center mx-auto gap-6 mt-10">
+      <section className="container flex flex-col items-center mx-auto gap-6 mt-10">
         <div className="text-center">
           <h2>Name of the box</h2>
           <Input value={boxName} setValue={setBoxName} />
@@ -33,15 +39,24 @@ export default function CreateBox() {
           cards={cards}
           flip={flip}
         />
-        <div>
-          <button
-            onClick={flipCard}
-            className=" rounded bg-green_primary px-3 py-1 text-white"
-          >
-            Flip
-          </button>
-        </div>
-      </main>
+
+        <button
+          onClick={flipCard}
+          className=" rounded bg-primary px-3 py-1 text-white"
+        >
+          Flip
+        </button>
+        <button
+          onClick={() =>
+            fetch("/api/cardBox", {
+              method: "POST",
+              body: JSON.stringify({ boxName, cards }),
+            })
+          }
+        >
+          Send
+        </button>
+      </section>
     </>
   );
 }
