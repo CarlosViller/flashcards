@@ -9,6 +9,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (req.method === "GET") {
+    console.log(id)
     return fetchCardBoxWithId(req, res, id);
   }
 
