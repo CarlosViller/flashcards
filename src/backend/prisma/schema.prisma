@@ -66,5 +66,5 @@ model Card {
   question String
   answer   String
   boxId    Int
-  box      CardBox @relation(fields: [boxId], references: [id])
+  box      CardBox @relation(fields: [boxId], references: [id], onDelete: Cascade)
 }
