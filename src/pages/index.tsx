@@ -9,12 +9,12 @@ export default function Root() {
   const [cards, setCards] = useState<Array<CardBoxWithCards>>([]);
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (!session?.user) router.push("/");
-  //   fetch("/api/cardBox")
-  //     .then((res) => res.json())
-  //     .then((payload) => setCards(payload));
-  // }, []);
+  useEffect(() => {
+    if (!session?.user) router.push("/");
+    fetch("/api/cardBox")
+      .then((res) => res.json())
+      .then((payload) => setCards(payload));
+  }, []);
 
   if (session?.user?.email) {
     return (
@@ -22,7 +22,7 @@ export default function Root() {
         <Header />
         <h1>Cajas</h1>
         {cards.map((cards) => (
-          <p key={cards.boxName}>{cards.boxName}</p>
+          <a key={cards.id} href={`/boxes/${cards.id}`}>{cards.boxName}</a>
         ))}
       </>
     );

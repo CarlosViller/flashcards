@@ -1,25 +1,57 @@
-import Header from "@/components/shared/Header";
-import Loading from "@/components/shared/Loading";
+import Spinner from "@/components/shared/Spinner";
 import { CardBoxWithCards } from "@/types";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { useRouter } from "next/router";
+import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function BoxPage({ cardBox }) {
-  const [box, setBox] = useState<CardBoxWithCards | null>(null);
+type Props = {
+  boxId: string;
+};
 
-  return <div>{cardBox.boxName}</div>;
+export default function BoxPage({ boxId }: Props) {
+  const [box, setBox] = useState<CardBoxWithCards | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter()
+
+  useEffect(() => {
+    async function fetchBoxWithId() {
+      const res = await fetch(`/api/cardBox/${boxId}`);
+      if (!res.ok) console.error(res);
+
+      setBox(await res.json());
+      setLoading(false);
+    }
+    fetchBoxWithId();
+  }, []);
+
+  async function handleClick() {
+    const res = await fetch(`/api/cardBox/${boxId}`, {
+      method: "DELETE",
+      body: JSON.stringify({id: boxId})
+    })
+
+    if(!res.ok) {
+      console.error(res)
+    }
+
+    router.push("/")
+  }
+
+  if (loading) return <Spinner />;
+
+  return (
+    <div>
+      <p>Nombre</p>
+      <p>{box.boxName}</p>
+      <div>
+        <button onClick={handleClick}>Delete</button>
+      </div>
+    </div>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
 
-  const res = await fetch(`api/cardBox/${id}`);
-
-  if (!res.ok) {
-    return { props: { cardBox: [{ boxName: "error" }] } };
-  }
-  const cardBox = await res.json();
-
-  return { props: { cardBox } };
+  return { props: { boxId: id } };
 }

@@ -23,7 +23,5 @@ export async function fetchCardBoxWithId(
     },
   });
 
-  console.log(cardBox)
-
   return res.json(cardBox);
 }
