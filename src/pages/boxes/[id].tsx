@@ -11,14 +11,18 @@ type Props = {
 export default function BoxPage({ boxId }: Props) {
   const [box, setBox] = useState<CardBoxWithCards | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchBoxWithId() {
       const res = await fetch(`/api/cardBox/${boxId}`);
       if (!res.ok) console.error(res);
 
-      setBox(await res.json());
+      const payload = await res.json();
+
+      if (!payload) console.log(payload);
+
+      setBox(payload);
       setLoading(false);
     }
     fetchBoxWithId();
@@ -27,14 +31,14 @@ export default function BoxPage({ boxId }: Props) {
   async function handleClick() {
     const res = await fetch(`/api/cardBox/${boxId}`, {
       method: "DELETE",
-      body: JSON.stringify({id: boxId})
-    })
+      body: JSON.stringify({ id: boxId }),
+    });
 
-    if(!res.ok) {
-      console.error(res)
+    if (!res.ok) {
+      console.error(res);
     }
 
-    router.push("/")
+    router.push("/");
   }
 
   if (loading) return <Spinner />;

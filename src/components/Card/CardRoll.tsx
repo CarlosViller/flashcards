@@ -1,5 +1,5 @@
 import EditableCard from "./EditableCard";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClose,
@@ -10,7 +10,6 @@ import { NewCard } from "@/pages/create";
 
 type Props = {
   cards: NewCard[];
-  flip: boolean;
   currentCardIndex: number;
   setCurrentCardIndex: React.Dispatch<React.SetStateAction<number>>;
   setCards: React.Dispatch<React.SetStateAction<Array<NewCard>>>;
@@ -20,18 +19,22 @@ const MAX_CARDS = 10;
 
 export default function CardRoll({
   cards,
-  flip,
   currentCardIndex,
   setCurrentCardIndex,
   setCards,
 }: Props) {
   const currentCard = useMemo(() => currentCardIndex + 1, [currentCardIndex]);
+  const [flip, setFlip] = useState(false);
 
-  const goPrev = () =>
+  const flipCard = () => setFlip((prevState) => !prevState);
+
+  const goPrev = () => {
     setCurrentCardIndex((prevPosition) => {
       const current = prevPosition - 1;
       return current > 0 ? current : 0;
     });
+    setFlip(false);
+  };
 
   const goNext = () => {
     if (!cards[currentCard]) {
@@ -44,6 +47,7 @@ export default function CardRoll({
       ]);
     }
     setCurrentCardIndex(currentCardIndex + 1);
+    setFlip(false);
   };
 
   const deleteCard = () => {
@@ -56,6 +60,7 @@ export default function CardRoll({
       );
       return newCards;
     });
+    setFlip(false);
   };
 
   return (
@@ -78,7 +83,12 @@ export default function CardRoll({
         >
           <FontAwesomeIcon icon={faArrowLeft} className="text-inherit" />
         </button>
-        <EditableCard card={cards[currentCardIndex]} flip={flip} />
+        <EditableCard
+          card={cards[currentCardIndex]}
+          currentCardIndex={currentCardIndex}
+          setCards={setCards}
+          flip={flip}
+        />
         <button
           className="nav-card-button disabled:text-gray-300 text-black"
           onClick={goNext}
@@ -92,6 +102,12 @@ export default function CardRoll({
         </button>
       </div>
       <p className="text-center">{`${cards.length}/${MAX_CARDS}`}</p>
+      <button
+        onClick={flipCard}
+        className=" rounded bg-primary px-3 py-1 text-white mx-auto"
+      >
+        Flip
+      </button>
     </div>
   );
 }

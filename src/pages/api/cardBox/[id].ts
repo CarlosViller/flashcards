@@ -8,9 +8,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (typeof id !== "string") {
     return res.status(400).send("Bad request");
   }
-
-  console.log(req.method)
-
+  
   if (req.method === "GET") {
     return fetchCardBoxWithId(req, res, id);
   }else if(req.method === "DELETE") {

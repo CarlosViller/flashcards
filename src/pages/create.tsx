@@ -2,8 +2,9 @@ import CardRoll from "@/components/Card/CardRoll";
 import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { useState } from "react";
+import 'quill/dist/quill.bubble.css';
+
 
 export type NewCard = {
   question: string;
@@ -11,16 +12,14 @@ export type NewCard = {
 };
 
 export default function CreateBox() {
-  const router = useRouter();
+  
 
   const [boxName, setBoxName] = useState("");
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [flip, setFlip] = useState(false);
+  
   const [cards, setCards] = useState<Array<NewCard>>([
     { question: "placeholder", answer: "holderplace" },
   ]);
-
-  const flipCard = () => setFlip((prevState) => !prevState);
 
   const { data: session } = useSession();
 
@@ -37,15 +36,7 @@ export default function CreateBox() {
           currentCardIndex={currentCardIndex}
           setCurrentCardIndex={setCurrentCardIndex}
           cards={cards}
-          flip={flip}
         />
-
-        <button
-          onClick={flipCard}
-          className=" rounded bg-primary px-3 py-1 text-white"
-        >
-          Flip
-        </button>
         <button
           onClick={() =>
             fetch("/api/cardBox", {
