@@ -3,8 +3,7 @@ import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import 'quill/dist/quill.bubble.css';
-
+import "quill/dist/quill.bubble.css";
 
 export type NewCard = {
   question: string;
@@ -12,16 +11,12 @@ export type NewCard = {
 };
 
 export default function CreateBox() {
-  
-
   const [boxName, setBoxName] = useState("");
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  
+
   const [cards, setCards] = useState<Array<NewCard>>([
     { question: "placeholder", answer: "holderplace" },
   ]);
-
-  const { data: session } = useSession();
 
   return (
     <>
@@ -38,6 +33,8 @@ export default function CreateBox() {
           cards={cards}
         />
         <button
+          className="primary"
+          disabled={boxName === ""}
           onClick={() =>
             fetch("/api/cardBox", {
               method: "POST",

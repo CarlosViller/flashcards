@@ -21,7 +21,7 @@ export default function EditableCard({
     setTimeout(() => cardRef?.current?.classList.add("flip"), 0);
   }, [flip]);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     let newValue: NewCard;
 
     if (e.target.id === "question-input") {
@@ -44,27 +44,33 @@ export default function EditableCard({
   }
 
   return (
-    <div>
-      <div
-        ref={cardRef}
-        className={`border-2 rounded flex min-w-[550px] min-h-[280px] items-center justify-center max-w-lg py-3 ${
-          flip ? "border-primary" : ""
-        }`}
-      >
-        {flip ? (
-          <input
-            id="question-input"
-            value={card.question}
-            onChange={handleChange}
-          />
-        ) : (
-          <input
-            id="answer-input"
-            value={card.answer}
-            onChange={handleChange}
-          />
-        )}
-      </div>
+    <div
+      ref={cardRef}
+      className={`border-2 rounded flex min-w-[550px] min-h-[280px] items-center justify-center max-w-lg py-3 ${
+        flip ? "border-primary" : ""
+      }`}
+    >
+      {flip ? (
+        <textarea
+          className="resize-none text-center align-middle overflow-hidden"
+          id="question-input"
+          rows={6}
+          cols={20}
+          maxLength={150}
+          value={card.question}
+          onChange={handleChange}
+        />
+      ) : (
+        <textarea
+          className="resize-none text-center align-middle overflow-hidden"
+          id="answer-input"
+          rows={6}
+          cols={20}
+          maxLength={150}
+          value={card.answer}
+          onChange={handleChange}
+        />
+      )}
     </div>
   );
 }

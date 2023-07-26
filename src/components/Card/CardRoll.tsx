@@ -64,7 +64,7 @@ export default function CardRoll({
   };
 
   return (
-    <div>
+    <div className="text-center">
       <div className="flex gap-4 justify-center items-center relative py-2">
         {cards.length > 1 && (
           <button onClick={deleteCard} className=" absolute top-0 right-0">
@@ -101,10 +101,10 @@ export default function CardRoll({
           />
         </button>
       </div>
-      <p className="text-center">{`${cards.length}/${MAX_CARDS}`}</p>
+      <p className="text-center mb-2">{`${cards.length}/${MAX_CARDS}`}</p>
       <button
         onClick={flipCard}
-        className=" rounded bg-primary px-3 py-1 text-white mx-auto"
+        className="secondary"
       >
         Flip
       </button>

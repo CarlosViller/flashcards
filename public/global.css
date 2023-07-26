@@ -51,3 +51,13 @@ button:focus {
 .nav-card-button:hover {
   color: #40b3a2;
 }
+
+button.primary {
+  @apply rounded bg-primary px-3 py-1 text-white mx-auto
+}
+button.primary:disabled {
+  opacity: 0.5;
+}
+button.secondary {
+  @apply rounded border-primary border-2 px-3 py-1 text-primary mx-auto
+}
