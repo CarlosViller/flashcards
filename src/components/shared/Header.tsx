@@ -32,6 +32,7 @@ export default function Header() {
         </section>
       </div>
       <div className="flex align-middle gap-3">
+        <Link href="/create" className="text-white px-2 mr-2 rounded-md border-white border-2">Create</Link>
         <Link href="/profile" className="flex items-center">
           <ProfilePic />
         </Link>

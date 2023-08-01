@@ -13,13 +13,20 @@ export async function fetchCardBoxes(
     return res.status(401).send("Unauthorized");
   }
 
-  const cardBoxes = await prisma.cardBox.findMany({
-    where: {
-      user: {
+  try {
+    const cardBoxes = await prisma.user.findUnique({
+      where: {
         email: session.user.email,
       },
-    },
-  });
+      select: {
+        boxes: true,
+      },
+    });
 
-  return res.json(cardBoxes);
+    if (cardBoxes) return res.json(cardBoxes.boxes);
+
+    return res.json([]);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
 }

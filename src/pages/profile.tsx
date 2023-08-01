@@ -1,6 +1,7 @@
 import Header from "@/components/shared/Header";
 import ProfilePic from "@/components/shared/ProfilePic";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function Profile() {
   const { data: session } = useSession();
@@ -19,10 +20,6 @@ export default function Profile() {
             <div className="flex flex-col">
               <h2 className="text-xl font-medium">Boxes</h2>
               <h2>2</h2>
-            </div>
-            <div className="flex flex-col">
-              <h2 className="text-xl font-medium">Cards</h2>
-              <h2>15</h2>
             </div>
           </div>
         </div>

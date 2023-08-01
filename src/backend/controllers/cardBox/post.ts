@@ -25,10 +25,7 @@ export async function createCardBox(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions);
   const { boxName, cards } = parsedBody;
 
-  if (!session?.user?.email) {
-    console.log(session);
-    return res.status(401).json({});
-  }
+  if (!session?.user?.email) return res.status(401).json({});
 
   const { id } = await prisma.cardBox.create({
     data: {
@@ -36,7 +33,12 @@ export async function createCardBox(req: NextApiRequest, res: NextApiResponse) {
       cards: {
         create: cards,
       },
-      user: {
+      creator: {
+        connect: {
+          email: session.user.email
+        }
+      },
+      users: {
         connect: {
           email: session.user.email,
         },

@@ -61,3 +61,14 @@ button.primary:disabled {
 button.secondary {
   @apply rounded border-primary border-2 px-3 py-1 text-primary mx-auto
 }
+
+.minibox button {
+  display: none;
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.minibox:hover button {
+  display: inline-block;
+  opacity: 1;
+}

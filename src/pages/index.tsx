@@ -1,29 +1,34 @@
+import MiniBox from "@/components/MiniBox";
 import Header from "@/components/shared/Header";
 import { CardBoxWithCards } from "@/types";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Root() {
   const { data: session } = useSession();
-  const [cards, setCards] = useState<Array<CardBoxWithCards>>([]);
+  const [boxes, setBoxes] = useState<Array<CardBoxWithCards>>([]);
   const router = useRouter();
 
   useEffect(() => {
     if (!session?.user) router.push("/");
     fetch("/api/cardBox")
       .then((res) => res.json())
-      .then((payload) => setCards(payload));
+      .then((payload) => setBoxes(payload));
   }, []);
 
   if (session?.user?.email) {
     return (
       <>
         <Header />
-        <h1>Cajas</h1>
-        {cards.map((cards) => (
-          <a key={cards.id} href={`/boxes/${cards.id}`}>{cards.boxName}</a>
-        ))}
+        <section className="px-6 mt-4">
+          <h1>Cajas</h1>
+          <div className="flex gap-4">
+            {boxes.map((box) => (
+              <MiniBox key={box.id} box={box} />
+            ))}
+          </div>
+        </section>
       </>
     );
   }

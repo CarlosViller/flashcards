@@ -51,14 +51,16 @@ model User {
   accounts      Account[]
   sessions      Session[]
   boxes         CardBox[]
+  createdBoxes  CardBox[] @relation(name: "ownership")
 }
 
 model CardBox {
-  id      Int    @id @default(autoincrement())
-  boxName String
-  userId  String
-  user    User   @relation(fields: [userId], references: [id])
-  cards   Card[]
+  id           Int    @id @default(autoincrement())
+  boxName      String
+  creatorEmail String
+  creator      User   @relation(name: "ownership", fields: [creatorEmail], references: [email])
+  users        User[]
+  cards        Card[]
 }
 
 model Card {
