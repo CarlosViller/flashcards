@@ -19,7 +19,7 @@ export default function Card({ card }: Props) {
       ref={cardRef}
       onClick={() => setFlip((prevState) => !prevState)}
       type="button"
-      className={`border-2 rounded flex min-w-[550px] min-h-[280px] items-center justify-center max-w-lg py-3 ${
+      className={`border-2 rounded flex text-sm px-1  min-h-[280px] items-center justify-center max-w-lg py-3 ${
         flip ? "border-primary" : ""
       }`}
     >

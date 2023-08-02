@@ -1,4 +1,4 @@
-import MiniBoxGrid from "@/components/MiniBoxGrid";
+import GridSection from "@/components/shared/GridSection";
 import MiniBoxOwned from "@/components/MiniBoxOwned";
 import Header from "@/components/shared/Header";
 import { CardBoxWithCards } from "@/types";
@@ -21,11 +21,11 @@ export default function Root() {
   return (
     <>
       <Header />
-      <MiniBoxGrid title="Your boxes">
+      <GridSection title="Your boxes">
         {boxes.map((box) => (
           <MiniBoxOwned key={box.id} box={box} />
         ))}
-      </MiniBoxGrid>
+      </GridSection>
     </>
   );
 }

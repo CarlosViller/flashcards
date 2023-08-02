@@ -1,4 +1,4 @@
-import MiniBoxGrid from "@/components/MiniBoxGrid";
+import GridSection from "@/components/shared/GridSection";
 import MiniBoxSearchItem from "@/components/MiniBoxSearchItem";
 import Header from "@/components/shared/Header";
 import { CardBoxWithCardsAndUsers } from "@/types";
@@ -20,11 +20,11 @@ export default function SearchPage({ query }: { query: string }) {
     return (
       <>
         <Header />
-        <MiniBoxGrid title={query}>
+        <GridSection title={query}>
           {boxes.map((box) => (
             <MiniBoxSearchItem key={box.id} box={box} />
           ))}
-        </MiniBoxGrid>
+        </GridSection>
       </>
     );
   }

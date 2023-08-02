@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { NewCard } from "@/pages/create";
 import { MAX_CARDS } from "@/constants";
-import { getRandomCardPlaceholder } from "@/utils";
 
 type Props = {
   cards: NewCard[];
@@ -75,7 +74,7 @@ export default function CardRoll({
           // Disable goPrev button if currentCard is the first of list
           disabled={currentCard === 1}
         >
-          <FontAwesomeIcon icon={faArrowLeft} className="text-inherit" />
+          <FontAwesomeIcon icon={faArrowLeft} className="text-inherit" size="sm" />
         </button>
         <EditableCard
           card={cards[currentCardIndex]}
@@ -91,7 +90,7 @@ export default function CardRoll({
           <FontAwesomeIcon
             icon={faArrowRight}
             className="text-inherit"
-            size="1x"
+            size="sm"
           />
         </button>
       </div>
