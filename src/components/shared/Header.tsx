@@ -25,7 +25,7 @@ export default function Header() {
           <ProfilePic />
         </Link>
         <button onClick={() => signOut()} className=" text-white">
-          <FontAwesomeIcon icon={faRightFromBracket} size="1x" />
+          <FontAwesomeIcon icon={faRightFromBracket} size="sm" />
         </button>
       </div>
     </header>

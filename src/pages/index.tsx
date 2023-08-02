@@ -1,13 +1,14 @@
 import GridSection from "@/components/shared/GridSection";
 import MiniBoxOwned from "@/components/MiniBoxOwned";
 import Header from "@/components/shared/Header";
-import { CardBoxWithCards } from "@/types";
-import { useSession } from "next-auth/react";
+import { CardBoxWithCards, SessionProps } from "@/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
 
-export default function Root() {
-  const { data: session } = useSession();
+export default function Root({ session }: SessionProps) {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCards>>([]);
   const router = useRouter();
 
@@ -28,4 +29,21 @@ export default function Root() {
       </GridSection>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
 }

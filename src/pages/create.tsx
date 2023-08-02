@@ -1,7 +1,6 @@
 import CardRoll from "@/components/Card/CardRoll";
 import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
-import { getRandomCardPlaceholder } from "@/utils";
 import { useState } from "react";
 
 export type NewCard = {

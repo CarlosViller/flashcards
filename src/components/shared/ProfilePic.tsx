@@ -4,13 +4,9 @@ import React from "react";
 
 type Props = {
   size?: number;
-  defaultIconSize?: string;
 };
 
-export default function ProfilePic({
-  size = 40,
-  defaultIconSize = "text-2xl",
-}: Props) {
+export default function ProfilePic({ size = 40 }: Props) {
   const { data: session } = useSession();
 
   if (session?.user?.image) {
@@ -24,10 +20,4 @@ export default function ProfilePic({
       />
     );
   }
-
-  return (
-    <span className={`material-symbols-outlined  ${defaultIconSize}`}>
-      person
-    </span>
-  );
 }
