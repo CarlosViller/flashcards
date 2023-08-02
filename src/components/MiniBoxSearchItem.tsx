@@ -3,7 +3,6 @@ import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React from "react";
 
 type Props = {
   box: CardBoxWithCardsAndUsers;
