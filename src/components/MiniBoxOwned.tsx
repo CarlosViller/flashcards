@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardBox } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
+import MiniBoxAction from "./shared/MiniBoxAction";
 
 type Props = {
   box: CardBox;
@@ -31,12 +32,9 @@ export default function MiniBoxOwned({ box }: Props) {
           Start
         </Link>
       </article>
-      <button
-        onClick={handleDisconnect}
-        className=" absolute top-[-10px] right-[-10px] aspect-square rounded-full bg-red-600 w-[35px] flex items-center justify-center"
-      >
+      <MiniBoxAction onClick={handleDisconnect} color="red-600">
         <FontAwesomeIcon className="text-white" icon={faMinus} />
-      </button>
+      </MiniBoxAction>
     </div>
   );
 }

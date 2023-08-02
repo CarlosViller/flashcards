@@ -75,3 +75,7 @@ button.secondary,
 .minibox:hover .start-study-btn {
   opacity: 1;
 }
+
+.minibox-action {
+  @apply absolute top-[-10px] right-[-10px] aspect-square rounded-full w-[35px] flex items-center justify-center;
+}
