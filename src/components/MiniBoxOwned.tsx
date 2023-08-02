@@ -1,20 +1,17 @@
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardBox } from "@prisma/client";
-import { useRouter } from "next/router";
 import React from "react";
 
 type Props = {
   box: CardBox;
 };
 
-export default function MiniBox({ box }: Props) {
-  const router = useRouter();
-
+export default function MiniBoxOwned({ box }: Props) {
   async function handleDisconnect() {
-    const res = await fetch(`/api/cardBox/${box.id}`, {
+    const res = await fetch(`/api/cardBox/connection}`, {
       method: "DELETE",
-      body: JSON.stringify({ id: box.id }),
+      body: JSON.stringify({ boxId: box.id }),
     });
 
     if (!res.ok) {
@@ -24,14 +21,15 @@ export default function MiniBox({ box }: Props) {
 
   return (
     <div className="relative minibox">
-      <article className=" relative h-full p-6 border-2 border-primary rounded-md m-4">
-        <a href={`/boxes/${box.id}`} className="">
-          {box.boxName}
+      <article className="flex flex-col justify-between items-center relative h-full p-6 border-2 gap-8 border-primary rounded-md">
+        <a href={`/boxes/${box.id}`}>{box.boxName}</a>
+        <a href="#" className="start-study-btn btn-primary">
+          Start
         </a>
       </article>
       <button
         onClick={handleDisconnect}
-        className=" absolute top-0 right-0 aspect-square rounded-full bg-red-600 w-[35px] flex items-center justify-center"
+        className=" absolute top-[-10px] right-[-10px] aspect-square rounded-full bg-red-600 w-[35px] flex items-center justify-center"
       >
         <FontAwesomeIcon className="text-white" icon={faMinus} />
       </button>

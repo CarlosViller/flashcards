@@ -1,4 +1,5 @@
-import MiniBox from "@/components/MiniBox";
+import MiniBoxGrid from "@/components/MiniBoxGrid";
+import MiniBoxOwned from "@/components/MiniBoxOwned";
 import Header from "@/components/shared/Header";
 import { CardBoxWithCards } from "@/types";
 import { useSession } from "next-auth/react";
@@ -15,20 +16,17 @@ export default function Root() {
     fetch("/api/cardBox")
       .then((res) => res.json())
       .then((payload) => setBoxes(payload));
-  }, []);
+  }, [router, session?.user]);
 
   if (session?.user?.email) {
     return (
       <>
         <Header />
-        <section className="px-6 mt-4">
-          <h1>Cajas</h1>
-          <div className="flex gap-4">
-            {boxes.map((box) => (
-              <MiniBox key={box.id} box={box} />
-            ))}
-          </div>
-        </section>
+        <MiniBoxGrid title="Your boxes">
+          {boxes.map((box) => (
+            <MiniBoxOwned key={box.id} box={box} />
+          ))}
+        </MiniBoxGrid>
       </>
     );
   }

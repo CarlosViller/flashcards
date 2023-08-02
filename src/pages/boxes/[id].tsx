@@ -43,6 +43,8 @@ export default function BoxPage({ boxId }: Props) {
 
   if (loading) return <Spinner />;
 
+  if (!box) return <p>bad id</p>;
+
   return (
     <div>
       <p>Nombre</p>
