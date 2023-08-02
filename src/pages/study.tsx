@@ -2,13 +2,18 @@ import Card from "@/components/Card/Card";
 import Header from "@/components/shared/Header";
 import Spinner from "@/components/shared/Spinner";
 import { MAX_CARDS } from "@/constants";
-import { CardBoxWithCards } from "@/types";
+import { CardBoxWithCards, SessionProps } from "@/types";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 
-export default function StudyPage({ boxId }: { boxId: string }) {
+interface Props extends SessionProps {
+  boxId: string;
+}
+
+export default function StudyPage({ boxId }: Props) {
   const [box, setBox] = useState<CardBoxWithCards>();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
@@ -49,7 +54,9 @@ export default function StudyPage({ boxId }: { boxId: string }) {
         <button
           className="nav-card-button disabled:text-gray-300 text-black"
           onClick={goNext}
-          disabled={currentCard === MAX_CARDS || currentCard === box.cards.length}
+          disabled={
+            currentCard === MAX_CARDS || currentCard === box.cards.length
+          }
         >
           <FontAwesomeIcon
             icon={faArrowRight}
@@ -63,7 +70,17 @@ export default function StudyPage({ boxId }: { boxId: string }) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
   const { boxId } = context.query;
 
-  return { props: { boxId } };
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: { boxId, session } };
 }

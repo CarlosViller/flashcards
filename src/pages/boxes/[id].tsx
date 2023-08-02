@@ -4,7 +4,7 @@ import Header from "@/components/shared/Header";
 import Spinner from "@/components/shared/Spinner";
 import { CardBoxWithCards } from "@/types";
 import { GetServerSidePropsContext } from "next";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -21,8 +21,6 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    // if (!session?.user?.email) router.push("/login");
-
     async function fetchBoxWithId() {
       const res = await fetch(`/api/cardBox/${boxId}`);
       if (!res.ok) console.error(res);
@@ -98,7 +96,17 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
+  const session = await getSession(context);
   let connectedUsers: Array<{ email: string }> = [];
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
   const data = await prisma.cardBox.findUnique({
     where: {

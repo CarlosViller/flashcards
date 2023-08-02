@@ -1,13 +1,16 @@
 import GridSection from "@/components/shared/GridSection";
 import MiniBoxSearchItem from "@/components/MiniBoxSearchItem";
 import Header from "@/components/shared/Header";
-import { CardBoxWithCardsAndUsers } from "@/types";
+import { CardBoxWithCardsAndUsers, SessionProps } from "@/types";
 import { GetServerSidePropsContext } from "next";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function SearchPage({ query }: { query: string }) {
-  const { data: session } = useSession();
+interface Props extends SessionProps {
+  query: string;
+}
+
+export default function SearchPage({ query, session }: Props) {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCardsAndUsers>>([]);
 
   useEffect(() => {
@@ -31,7 +34,17 @@ export default function SearchPage({ query }: { query: string }) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
   const { q } = context.query;
 
-  return { props: { query: q } };
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: { query: q, session } };
 }
