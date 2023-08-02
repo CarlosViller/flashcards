@@ -3,7 +3,7 @@ import MiniBoxOwned from "@/components/MiniBoxOwned";
 import Header from "@/components/shared/Header";
 import { CardBoxWithCards } from "@/types";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Root() {
@@ -12,24 +12,20 @@ export default function Root() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!session?.user) router.push("/");
+    if (!session?.user?.email) router.push("/");
     fetch("/api/cardBox")
       .then((res) => res.json())
       .then((payload) => setBoxes(payload));
-  }, [router, session?.user]);
+  }, []);
 
-  if (session?.user?.email) {
-    return (
-      <>
-        <Header />
-        <MiniBoxGrid title="Your boxes">
-          {boxes.map((box) => (
-            <MiniBoxOwned key={box.id} box={box} />
-          ))}
-        </MiniBoxGrid>
-      </>
-    );
-  }
-
-  return <p>sada</p>;
+  return (
+    <>
+      <Header />
+      <MiniBoxGrid title="Your boxes">
+        {boxes.map((box) => (
+          <MiniBoxOwned key={box.id} box={box} />
+        ))}
+      </MiniBoxGrid>
+    </>
+  );
 }

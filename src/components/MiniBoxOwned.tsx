@@ -1,6 +1,7 @@
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardBox } from "@prisma/client";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -23,9 +24,12 @@ export default function MiniBoxOwned({ box }: Props) {
     <div className="relative minibox">
       <article className="flex flex-col justify-between items-center relative h-full p-6 border-2 gap-8 border-primary rounded-md">
         <a href={`/boxes/${box.id}`}>{box.boxName}</a>
-        <a href="#" className="start-study-btn btn-primary">
+        <Link
+          href={`/study?boxId=${box.id}`}
+          className="start-study-btn btn-primary"
+        >
           Start
-        </a>
+        </Link>
       </article>
       <button
         onClick={handleDisconnect}

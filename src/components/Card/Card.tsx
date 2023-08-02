@@ -1,25 +1,29 @@
-import { Card } from "@prisma/client";
-import { useState } from "react";
+import { Card as CardT } from "@prisma/client";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
-  card: Card;
+  card: CardT;
 };
 
 export default function Card({ card }: Props) {
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [flip, setFlip] = useState(false);
+  const cardRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    cardRef?.current?.classList.remove("flip");
+    setTimeout(() => cardRef?.current?.classList.add("flip"), 0);
+  }, [flip]);
 
   return (
     <button
-      onClick={() => setShowAnswer((prevState) => !prevState)}
+      ref={cardRef}
+      onClick={() => setFlip((prevState) => !prevState)}
       type="button"
+      className={`border-2 rounded flex min-w-[550px] min-h-[280px] items-center justify-center max-w-lg py-3 ${
+        flip ? "border-primary" : ""
+      }`}
     >
-      <div
-        className={`border-2 rounded flex items-center justify-center max-w-lg py-3 ${
-          showAnswer ? "border-green-600" : ""
-        }`}
-      >
-        {showAnswer ? card.answer : card.question}
-      </div>
+      {flip ? card.answer : card.question}
     </button>
   );
 }

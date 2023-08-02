@@ -7,6 +7,7 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { NewCard } from "@/pages/create";
+import { MAX_CARDS } from "@/constants";
 
 type Props = {
   cards: NewCard[];
@@ -14,8 +15,6 @@ type Props = {
   setCurrentCardIndex: React.Dispatch<React.SetStateAction<number>>;
   setCards: React.Dispatch<React.SetStateAction<Array<NewCard>>>;
 };
-
-const MAX_CARDS = 10;
 
 export default function CardRoll({
   cards,
