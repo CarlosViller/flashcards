@@ -35,7 +35,7 @@ export default function StudyPage({ boxId }: Props) {
     }
 
     getBox();
-  }, []);
+  }, [boxId]);
 
   if (!box) return <Spinner />;
 

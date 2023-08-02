@@ -33,7 +33,7 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
       setLoading(false);
     }
     fetchBoxWithId();
-  }, []);
+  }, [boxId]);
 
   async function handleRemove() {
     const res = await fetch(`/api/cardBox/${boxId}`, {
