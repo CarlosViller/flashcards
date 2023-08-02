@@ -1,5 +1,6 @@
 import { NewCard } from "@/pages/create";
-import { useEffect, useRef } from "react";
+import { getRandomCardPlaceholder } from "@/utils";
+import { useEffect, useMemo, useRef } from "react";
 
 type Props = {
   card: NewCard;
@@ -15,6 +16,8 @@ export default function EditableCard({
   setCards,
 }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
+
+  const placeholder = useMemo(() => getRandomCardPlaceholder(), []);
 
   useEffect(() => {
     cardRef?.current?.classList.remove("flip");
@@ -50,13 +53,14 @@ export default function EditableCard({
         flip ? "border-primary" : ""
       }`}
     >
-      {flip ? (
+      {!flip ? (
         <textarea
           className="resize-none text-center align-middle overflow-hidden"
           id="question-input"
           rows={6}
           cols={20}
           maxLength={150}
+          placeholder={placeholder.question}
           value={card.question}
           onChange={handleChange}
         />
@@ -67,6 +71,7 @@ export default function EditableCard({
           rows={6}
           cols={20}
           maxLength={150}
+          placeholder={placeholder.answer}
           value={card.answer}
           onChange={handleChange}
         />

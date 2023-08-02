@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { NewCard } from "@/pages/create";
 import { MAX_CARDS } from "@/constants";
+import { getRandomCardPlaceholder } from "@/utils";
 
 type Props = {
   cards: NewCard[];
@@ -37,13 +38,7 @@ export default function CardRoll({
 
   const goNext = () => {
     if (!cards[currentCard]) {
-      setCards((prevCards) => [
-        ...prevCards,
-        {
-          question: `hola ${currentCard}`,
-          answer: `chao ${currentCard}`,
-        },
-      ]);
+      setCards((prevCards) => [...prevCards, { question: "", answer: "" }]);
     }
     setCurrentCardIndex(currentCardIndex + 1);
     setFlip(false);
@@ -101,10 +96,7 @@ export default function CardRoll({
         </button>
       </div>
       <p className="text-center mb-2">{`${cards.length}/${MAX_CARDS}`}</p>
-      <button
-        onClick={flipCard}
-        className="secondary"
-      >
+      <button onClick={flipCard} className="secondary">
         Flip
       </button>
     </div>

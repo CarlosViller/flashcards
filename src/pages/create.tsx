@@ -1,6 +1,7 @@
 import CardRoll from "@/components/Card/CardRoll";
 import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
+import { getRandomCardPlaceholder } from "@/utils";
 import { useState } from "react";
 
 export type NewCard = {
@@ -13,7 +14,7 @@ export default function CreateBox() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   const [cards, setCards] = useState<Array<NewCard>>([
-    { question: "placeholder", answer: "holderplace" },
+    { question: "", answer: "" },
   ]);
 
   return (
