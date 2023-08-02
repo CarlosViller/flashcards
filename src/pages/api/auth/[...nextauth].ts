@@ -10,9 +10,8 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
-      clientId:
-        "545521057305-j3lhg9ng741b95vnd1tekme80akegcdj.apps.googleusercontent.com",
-      clientSecret: "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",
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization: {
         params: {
           prompt: "consent",
