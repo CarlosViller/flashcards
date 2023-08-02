@@ -1,11 +1,9 @@
+# Flashcards (provisional name)
 
-# Flashcards (provisory name)
+A webpage where you can create [flashcards](https://en.wikipedia.org/wiki/Flashcard) on different topics. You can save these cards in boxes categorized under specific themes, and you can also create multiple boxes to cover various subjects.
 
-Una pagina donde puedes crear [flashcards](https://es.wikipedia.org/wiki/Tarjeta_de_aprendizaje) de distintos temas, estas tarjetas puedes guardarlas en cajas sobre un tema en especifico, tambien puedes crear diferentes cajas para abarcar varios temas.
-
-## Futuras mejoras
- - Poder crear cajas de temas
- - Agregar animaciones a las tarjetas para mejorar UX
- - Poder customizar cajas, agregarle tags y/o filtros
- - Poder compartir cajas entre usuarios
-
+## Future improvements
+- Ability to create theme boxes
+- Adding animations to the cards to enhance user experience (UX)
+- Ability to customize boxes, add tags, and/or filters
+- Ability to share boxes among users.
