@@ -15,6 +15,10 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <Head>
+        <link
+          rel="icon"
+          href="/icon.png"
+        />
         <title>Kartu - Create your own flashcards</title>
       </Head>
       <main className={baloo_2.className}>
