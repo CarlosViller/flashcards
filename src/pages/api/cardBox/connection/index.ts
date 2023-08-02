@@ -17,7 +17,7 @@ export default async function handler(
   return res.status(400).json({ message: "Bad request" });
 }
 
-const schema = Joi.object({ boxId: Joi.string().required() }).required();
+const schema = Joi.object({ boxId: Joi.number().required() }).required();
 
 export async function cardBoxConnectionHandler(
   req: NextApiRequest,
