@@ -17,7 +17,7 @@ export default function Header() {
       <div className="flex align-middle gap-3">
         <Link
           href="/create"
-          className="text-white px-2 mr-2 rounded-md border-white border-2"
+          className="text-white px-4 mr-6 rounded-md border-white border-2"
         >
           Create
         </Link>
@@ -25,7 +25,7 @@ export default function Header() {
           <ProfilePic />
         </Link>
         <button onClick={() => signOut()} className=" text-white">
-          <FontAwesomeIcon icon={faRightFromBracket} size="sm" />
+          <FontAwesomeIcon icon={faRightFromBracket} size="sm" className="w-[30px]" />
         </button>
       </div>
     </header>
