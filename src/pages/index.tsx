@@ -18,11 +18,15 @@ export default function Root() {
   return (
     <>
       <Header />
-      <GridSection title="Your boxes">
-        {boxes.map((box) => (
-          <MiniBoxOwned key={box.id} box={box} />
-        ))}
-      </GridSection>
+      {boxes.length > 0 ? (
+        <GridSection title="Your boxes">
+          {boxes.map((box) => ( 
+            <MiniBoxOwned key={box.id} box={box} />
+          ))}
+        </GridSection>
+      ) : (
+        <h1 className="text-center mt-12">{`You don't have any card boxes, start creating ones with the create button!`}</h1>
+      )}
     </>
   );
 }
