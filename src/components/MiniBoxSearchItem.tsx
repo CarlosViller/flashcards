@@ -7,23 +7,12 @@ import MiniBoxAction from "./shared/MiniBoxAction";
 
 type Props = {
   box: CardBoxWithCardsAndUsers;
+  handleConnect: (boxId: number) => Promise<void>;
 };
 
-export default function MiniBoxSearchItem({ box }: Props) {
+export default function MiniBoxSearchItem({ box, handleConnect }: Props) {
   const { data: session } = useSession();
   const router = useRouter();
-
-  async function handleConnect() {
-    const res = await fetch(`/api/cardBox/connection`, {
-      method: "POST",
-      body: JSON.stringify({ boxId: box.id }),
-    });
-
-    if (!res.ok) {
-      console.error(res);
-    }
-  }
-
   if (!session?.user?.email) {
     router.push("/login");
     return null;
@@ -40,7 +29,7 @@ export default function MiniBoxSearchItem({ box }: Props) {
           <FontAwesomeIcon className="text-white" icon={faCheck} size="2xs" />
         </article>
       ) : (
-        <MiniBoxAction onClick={handleConnect} color="primary">
+        <MiniBoxAction onClick={() => handleConnect(box.id)} color="primary">
           <FontAwesomeIcon className="text-white" icon={faPlus} size="2xs" />
         </MiniBoxAction>
       )}
