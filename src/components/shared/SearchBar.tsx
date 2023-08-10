@@ -25,7 +25,7 @@ export default function SearchBar() {
         className="text-xs py-[4px] w-[350px]"
       />
       <Link href={`/search?q=${query}`}>
-        <FontAwesomeIcon icon={faMagnifyingGlass} className="text-primary" />
+        <FontAwesomeIcon icon={faMagnifyingGlass} className="text-primary w-[18px]" />
       </Link>
     </section>
   );

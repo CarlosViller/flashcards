@@ -10,7 +10,8 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     return cardBoxConnectionHandler(req, res, "connect");
-  } else if (req.method === "DELETE") {
+    // I would like to use DELETE but Next has a bug with bodies in DELETE method
+  } else if (req.method === "PUT") {
     return cardBoxConnectionHandler(req, res, "disconnect");
   }
 

@@ -10,7 +10,7 @@ interface Props extends SessionProps {
   query: string;
 }
 
-export default function SearchPage({ query, session }: Props) {
+export default function SearchPage({ query }: Props) {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCardsAndUsers>>([]);
 
   useEffect(() => {
@@ -19,18 +19,16 @@ export default function SearchPage({ query, session }: Props) {
       .then((payload) => setBoxes(payload));
   }, [query]);
 
-  if (session?.user?.email) {
-    return (
-      <>
-        <Header />
-        <GridSection title={query}>
-          {boxes.map((box) => (
-            <MiniBoxSearchItem key={box.id} box={box} />
-          ))}
-        </GridSection>
-      </>
-    );
-  }
+  return (
+    <>
+      <Header />
+      <GridSection title={query}>
+        {boxes.map((box) => (
+          <MiniBoxSearchItem key={box.id} box={box} />
+        ))}
+      </GridSection>
+    </>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

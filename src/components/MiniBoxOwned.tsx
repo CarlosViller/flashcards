@@ -7,20 +7,10 @@ import MiniBoxAction from "./shared/MiniBoxAction";
 
 type Props = {
   box: CardBox;
+  handleDisconnect: (boxId: number) => Promise<void>;
 };
 
-export default function MiniBoxOwned({ box }: Props) {
-  async function handleDisconnect() {
-    const res = await fetch(`/api/cardBox/connection}`, {
-      method: "DELETE",
-      body: JSON.stringify({ boxId: box.id }),
-    });
-
-    if (!res.ok) {
-      console.error(res);
-    }
-  }
-
+export default function MiniBoxOwned({ box, handleDisconnect }: Props) {
   return (
     <div className="relative minibox">
       <article className="flex flex-col justify-between items-center relative h-full p-6 border-2 gap-8 border-primary rounded-md">
@@ -32,7 +22,7 @@ export default function MiniBoxOwned({ box }: Props) {
           Start
         </Link>
       </article>
-      <MiniBoxAction onClick={handleDisconnect} color="red-600">
+      <MiniBoxAction onClick={() => handleDisconnect(box.id)} color="red-600">
         <FontAwesomeIcon className="text-white" icon={faMinus} />
       </MiniBoxAction>
     </div>
