@@ -16,7 +16,7 @@ export default function EditableCard({
   setCards,
 }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const placeholder = getRandomCardPlaceholder();
+  const placeholder = useMemo(() => getRandomCardPlaceholder(), [currentCardIndex])
 
   useEffect(() => {
     cardRef?.current?.classList.remove("flip");

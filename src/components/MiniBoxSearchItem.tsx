@@ -29,7 +29,7 @@ export default function MiniBoxSearchItem({ box, handleConnect }: Props) {
           <FontAwesomeIcon className="text-white" icon={faCheck} size="2xs" />
         </article>
       ) : (
-        <MiniBoxAction onClick={() => handleConnect(box.id)} color="primary">
+        <MiniBoxAction onClick={() => handleConnect(box.id)} variant="add">
           <FontAwesomeIcon className="text-white" icon={faPlus} size="2xs" />
         </MiniBoxAction>
       )}

@@ -22,7 +22,7 @@ export default function MiniBoxOwned({ box, handleDisconnect }: Props) {
           Start
         </Link>
       </article>
-      <MiniBoxAction onClick={() => handleDisconnect(box.id)} color="red-600">
+      <MiniBoxAction onClick={() => handleDisconnect(box.id)} variant="remove">
         <FontAwesomeIcon className="text-white" icon={faMinus} />
       </MiniBoxAction>
     </div>
