@@ -6,14 +6,14 @@ import {
   faArrowLeft,
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { NewCard } from "@/pages/create";
 import { MAX_CARDS } from "@/constants";
+import { Card } from "@/types";
 
 type Props = {
-  cards: NewCard[];
+  cards: Card[];
   currentCardIndex: number;
   setCurrentCardIndex: React.Dispatch<React.SetStateAction<number>>;
-  setCards: React.Dispatch<React.SetStateAction<Array<NewCard>>>;
+  setCards: React.Dispatch<React.SetStateAction<Array<Card>>>;
 };
 
 export default function CardRoll({
@@ -74,7 +74,11 @@ export default function CardRoll({
           // Disable goPrev button if currentCard is the first of list
           disabled={currentCard === 1}
         >
-          <FontAwesomeIcon icon={faArrowLeft} className="text-inherit" size="sm" />
+          <FontAwesomeIcon
+            icon={faArrowLeft}
+            className="text-inherit"
+            size="sm"
+          />
         </button>
         <EditableCard
           card={cards[currentCardIndex]}

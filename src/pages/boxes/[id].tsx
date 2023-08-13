@@ -5,6 +5,7 @@ import Spinner from "@/components/shared/Spinner";
 import { CardBoxWithCards } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -43,7 +44,7 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
 
     if (!res.ok) {
       console.error(res);
-      return 
+      return;
     }
 
     router.push("/");
@@ -78,7 +79,7 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
             (user) => user.email === session?.user?.email
           ) ? (
             <>
-              <button onClick={() => setEditMode(!editMode)}>Edit</button>
+              <Link href={`/boxes/edit/${boxId}`}>Edit</Link>
               <button onClick={handleRemove}>Remove</button>
             </>
           ) : (

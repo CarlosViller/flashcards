@@ -2,47 +2,72 @@ import { ToastContext } from "@/ToastContext";
 import CardRoll from "@/components/Card/CardRoll";
 import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
-import { CardBoxWithCards } from "@/types";
+import { Card, CardBoxWithCards, SessionUser } from "@/types";
 import { GetServerSidePropsContext } from "next";
-import { DefaultSession } from "next-auth";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 type Props = {
   boxId: number;
-  currentUser: DefaultSession
+  currentUser: SessionUser;
 };
 
 export default function EditPage({ boxId, currentUser }: Props) {
   const [box, setBox] = useState<CardBoxWithCards>();
+  const [boxName, setBoxName] = useState("");
+  const [editableCards, setEditableCards] = useState<Card[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const { notifyError } = useContext(ToastContext);
-  
+  const { notifyError, notifySuccess } = useContext(ToastContext);
+  const router = useRouter();
+
   useEffect(() => {
     async function fetchBoxWithId() {
       const res = await fetch(`/api/cardBox/${boxId}`);
-      if (!res.ok) console.error(res);
+      if (!res.ok) return;
 
-      const payload = await res.json();
+      const payload: CardBoxWithCards | null = await res.json();
 
-      if (!payload) console.log(payload);
+      if (!payload) return;
 
       setBox(payload);
-      // setLoading(false);
+      setBoxName(payload.boxName);
+      setEditableCards(
+        payload.cards.map((card) => ({
+          question: card.question,
+          answer: card.answer,
+        }))
+      );
     }
     fetchBoxWithId();
   }, [boxId]);
 
-  if(!box) {
-    return (
-      <>
-      <Header />
-      <h1>Box not found</h1>
-      </>
-    )
+  async function handleSubmit() {
+    const res = await fetch("/api/cardBox", {
+      method: "POST",
+      body: JSON.stringify({ boxName, cards: editableCards }),
+    });
+
+    if (!res.ok) {
+      notifyError("Cannot save box!");
+      return;
+    }
+
+    const { id } = await res.json();
+    notifySuccess("Box saved!");
+    router.push(`/boxes/${id}`);
   }
 
-  if (currentUser.user?.email !== box?.creatorEmail) {
+  if (!box) {
+    return (
+      <>
+        <Header />
+        <h1>Box not found</h1>
+      </>
+    );
+  }
+
+  if (currentUser.email !== box?.creatorEmail) {
     return (
       <>
         <Header />
@@ -57,29 +82,18 @@ export default function EditPage({ boxId, currentUser }: Props) {
       <section className="container flex flex-col items-center mx-auto gap-6 mt-10">
         <div className="text-center">
           <h2>Name of the box</h2>
-          <Input value={box.boxName} setValue={(value) => {
-            setBox((prevState) => {
-              return {...prevState, boxName: value }
-            })
-          }} />
+          <Input value={box.boxName} setValue={setBoxName} />
         </div>
         <CardRoll
-          setCards={(value) => setBox((prevState) => ({
-            ...prevState, cards: value
-          }))}
+          setCards={setEditableCards}
           currentCardIndex={currentCardIndex}
           setCurrentCardIndex={setCurrentCardIndex}
-          cards={box.cards}
+          cards={editableCards}
         />
         <button
           className="primary"
-          disabled={boxName === ""}
-          onClick={() =>
-            fetch("/api/cardBox", {
-              method: "POST",
-              body: JSON.stringify({ boxName, cards }),
-            })
-          }
+          disabled={box.boxName === ""}
+          onClick={handleSubmit}
         >
           Save
         </button>

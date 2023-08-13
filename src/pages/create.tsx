@@ -1,20 +1,16 @@
 import CardRoll from "@/components/Card/CardRoll";
 import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
+import { Card } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 import { useState } from "react";
-
-export type NewCard = {
-  question: string;
-  answer: string;
-};
 
 export default function CreateBox() {
   const [boxName, setBoxName] = useState("");
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
-  const [cards, setCards] = useState<Array<NewCard>>([
+  const [cards, setCards] = useState<Array<Card>>([
     { question: "", answer: "" },
   ]);
 

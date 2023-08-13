@@ -48,8 +48,8 @@ async function createCardBox(req: NextApiRequest, res: NextApiResponse) {
       },
       creator: {
         connect: {
-          email: session.user.email
-        }
+          email: session.user.email,
+        },
       },
       users: {
         connect: {
@@ -59,13 +59,10 @@ async function createCardBox(req: NextApiRequest, res: NextApiResponse) {
     },
   });
 
-  return res.status(200).json(id);
+  return res.status(200).json({ id });
 }
 
-async function fetchCardBoxes(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function fetchCardBoxes(req: NextApiRequest, res: NextApiResponse) {
   const session = await getServerSession(req, res, authOptions);
 
   if (!session?.user?.email) {
