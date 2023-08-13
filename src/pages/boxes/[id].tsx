@@ -36,13 +36,14 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
   }, [boxId]);
 
   async function handleRemove() {
-    const res = await fetch(`/api/cardBox/${boxId}`, {
-      method: "DELETE",
+    const res = await fetch(`/api/cardBox/connection`, {
+      method: "PUT",
       body: JSON.stringify({ id: boxId }),
     });
 
     if (!res.ok) {
       console.error(res);
+      return 
     }
 
     router.push("/");

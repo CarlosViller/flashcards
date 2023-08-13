@@ -15,8 +15,8 @@ export default function Root() {
     const res = await fetch("/api/cardBox");
 
     if (!res.ok) {
-      console.error(res);
       notifyError("Unexpected Error");
+      return
     }
     setBoxes(await res.json());
   }
