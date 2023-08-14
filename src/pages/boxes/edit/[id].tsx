@@ -8,12 +8,11 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
-type Props = {
+interface Props extends SessionUser {
   boxId: number;
-  currentUser: SessionUser;
-};
+}
 
-export default function EditPage({ boxId, currentUser }: Props) {
+export default function EditPage({ boxId, user }: Props) {
   const [box, setBox] = useState<CardBoxWithCards>();
   const [boxName, setBoxName] = useState("");
   const [editableCards, setEditableCards] = useState<Card[]>([]);
@@ -67,7 +66,7 @@ export default function EditPage({ boxId, currentUser }: Props) {
     );
   }
 
-  if (currentUser.email !== box?.creatorEmail) {
+  if (user.email !== box?.creatorEmail) {
     return (
       <>
         <Header />
@@ -115,5 +114,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  return { props: { boxId: id, currentUser: session.user } };
+  return { props: { boxId: id, user: session.user } };
 }
