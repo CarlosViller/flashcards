@@ -1,12 +1,12 @@
-import { NewCard } from "@/pages/create";
+import { Card } from "@/types";
 import { getRandomCardPlaceholder } from "@/utils";
 import { useEffect, useMemo, useRef } from "react";
 
 type Props = {
-  card: NewCard;
+  card: Card;
   currentCardIndex: number;
   flip: boolean;
-  setCards: React.Dispatch<React.SetStateAction<Array<NewCard>>>;
+  setCards: React.Dispatch<React.SetStateAction<Array<Card>>>;
 };
 
 export default function EditableCard({
@@ -24,7 +24,7 @@ export default function EditableCard({
   }, [flip]);
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    let newValue: NewCard;
+    let newValue: Card;
 
     if (e.target.id === "question-input") {
       newValue = {
