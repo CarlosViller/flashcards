@@ -28,6 +28,8 @@ export async function cardBoxConnectionHandler(
   const parsedBody = JSON.parse(req.body);
   const { error } = schema.validate(parsedBody);
 
+  console.log(parsedBody)
+
   if (error) {
     return res.status(400).json({ message: error });
   }
@@ -46,7 +48,7 @@ export async function cardBoxConnectionHandler(
       data: {
         boxes: {
           connect: {
-            id: parsedBody.boxId,
+            id: Number(parsedBody.boxId),
           },
         },
       },
@@ -59,7 +61,7 @@ export async function cardBoxConnectionHandler(
       data: {
         boxes: {
           disconnect: {
-            id: parsedBody.boxId,
+            id: Number(parsedBody.boxId),
           },
         },
       },

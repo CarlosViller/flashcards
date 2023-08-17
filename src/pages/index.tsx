@@ -6,25 +6,27 @@ import { useContext, useEffect, useState } from "react";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { ToastContext } from "@/ToastContext";
+import Loading from "@/components/shared/Loading";
 
 export default function Root() {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCards>>([]);
   const { notifyError } = useContext(ToastContext);
+  const [loading, setLoading] = useState(true);
 
   async function fetchBoxes() {
+    setLoading(true);
     const res = await fetch("/api/cardBox");
 
     if (!res.ok) {
       notifyError("Unexpected Error");
-      return
+    } else {
+      setBoxes(await res.json());
     }
-    setBoxes(await res.json());
+
+    setLoading(false);
+    return;
   }
-
-  useEffect(() => {
-    fetchBoxes();
-  }, []);
-
+  
   async function handleDisconnect(boxId: number) {
     const res = await fetch(`/api/cardBox/connection`, {
       method: "PUT",
@@ -32,12 +34,20 @@ export default function Root() {
     });
 
     if (!res.ok) {
-      console.error(res);
-      notifyError("Unexpected Error");
+      notifyError("Cannot disconnect box");
       return;
     }
 
     await fetchBoxes();
+  }
+
+  useEffect(() => {
+    fetchBoxes();
+  }, []);
+
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (

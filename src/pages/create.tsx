@@ -1,23 +1,44 @@
+import { ToastContext } from "@/ToastContext";
 import CardRoll from "@/components/Card/CardRoll";
 import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
 import { Card } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
 
 export default function CreateBox() {
   const [boxName, setBoxName] = useState("");
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const router = useRouter();
+  const toast = useContext(ToastContext);
 
   const [cards, setCards] = useState<Array<Card>>([
     { question: "", answer: "" },
   ]);
 
+  async function handleCreate() {
+    const res = await fetch("/api/cardBox", {
+      method: "POST",
+      body: JSON.stringify({ boxName, cards }),
+    });
+
+    if (!res.ok) {
+      toast.notifyError("An error occurred while creating the card box");
+      return;
+    }
+
+    const { id } = await res.json();
+
+    toast.notifySuccess("Box created successfully");
+    router.push(`/boxes/${id}`);
+  }
+
   return (
     <>
       <Header />
-      <section className="container flex flex-col items-center mx-auto gap-6 mt-10">
+      <section className="container flex flex-col items-center mx-auto gap-6 my-10">
         <div className="text-center">
           <h2>Name of the box</h2>
           <Input value={boxName} setValue={setBoxName} />
@@ -29,16 +50,11 @@ export default function CreateBox() {
           cards={cards}
         />
         <button
-          className="primary"
+          className="primary hover:scale-125 transition-transform"
           disabled={boxName === ""}
-          onClick={() =>
-            fetch("/api/cardBox", {
-              method: "POST",
-              body: JSON.stringify({ boxName, cards }),
-            })
-          }
+          onClick={handleCreate}
         >
-          Send
+          Create box
         </button>
       </section>
     </>

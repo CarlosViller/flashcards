@@ -24,7 +24,7 @@ export default function Header() {
         <Link href="/profile" className="flex items-center">
           <ProfilePic />
         </Link>
-        <button onClick={() => signOut()} className=" text-white">
+        <button onClick={() => signOut()} className=" text-white flex items-center">
           <FontAwesomeIcon icon={faRightFromBracket} size="sm" className="w-[30px]" />
         </button>
       </div>

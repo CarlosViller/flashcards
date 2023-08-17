@@ -1,13 +1,15 @@
+import { ToastContext } from "@/ToastContext";
 import prisma from "@/backend/prisma/client";
 import Card from "@/components/Card/Card";
 import Header from "@/components/shared/Header";
+import Loading from "@/components/shared/Loading";
 import Spinner from "@/components/shared/Spinner";
 import { CardBoxWithCards } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 type Props = {
   boxId: string;
@@ -16,10 +18,10 @@ type Props = {
 
 export default function BoxPage({ boxId, connectedUsers }: Props) {
   const [box, setBox] = useState<CardBoxWithCards | null>(null);
-  const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
+  const notify = useContext(ToastContext);
 
   useEffect(() => {
     async function fetchBoxWithId() {
@@ -28,7 +30,7 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
 
       const payload = await res.json();
 
-      if (!payload) console.log(payload);
+      if (!payload) return;
 
       setBox(payload);
       setLoading(false);
@@ -39,14 +41,15 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
   async function handleRemove() {
     const res = await fetch(`/api/cardBox/connection`, {
       method: "PUT",
-      body: JSON.stringify({ id: boxId }),
+      body: JSON.stringify({ boxId }),
     });
 
     if (!res.ok) {
-      console.error(res);
+      notify.notifyError("Cannot remove box");
       return;
     }
 
+    notify.notifySuccess("Box removed");
     router.push("/");
   }
 
@@ -65,9 +68,18 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
     router.push(`/boxes/${id}`);
   }
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loading />;
 
-  if (!box) return <p>bad id</p>;
+  if (!box)
+    return (
+      <>
+        <Header />
+        <section className=" mt-6 text-center">
+          <p>404</p>
+          <p>Box cannot be found</p>
+        </section>
+      </>
+    );
 
   return (
     <>
