@@ -2,7 +2,7 @@ import GridSection from "@/components/shared/GridSection";
 import MiniBoxOwned from "@/components/MiniBoxOwned";
 import Header from "@/components/shared/Header";
 import { CardBoxWithCards } from "@/types";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { ToastContext } from "@/ToastContext";
@@ -12,8 +12,8 @@ export default function Root() {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCards>>([]);
   const { notifyError } = useContext(ToastContext);
   const [loading, setLoading] = useState(true);
-
-  async function fetchBoxes() {
+  
+  const fetchBoxes = useCallback(async () => {
     setLoading(true);
     const res = await fetch("/api/cardBox");
 
@@ -25,8 +25,8 @@ export default function Root() {
 
     setLoading(false);
     return;
-  }
-  
+  }, [notifyError])
+    
   async function handleDisconnect(boxId: number) {
     const res = await fetch(`/api/cardBox/connection`, {
       method: "PUT",
@@ -43,7 +43,7 @@ export default function Root() {
 
   useEffect(() => {
     fetchBoxes();
-  }, []);
+  }, [fetchBoxes]);
 
 
   if (loading) {
