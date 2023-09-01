@@ -4,7 +4,7 @@ import Header from "@/components/shared/Header";
 import { CardBoxWithCardsAndUsers } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "@/ToastContext";
 
 interface Props {
@@ -15,18 +15,18 @@ export default function SearchPage({ query }: Props) {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCardsAndUsers>>([]);
   const { notifyError } = useContext(ToastContext);
 
-  const fetchBoxes = useCallback(async () => {
+  const fetchBoxes = async () => {
     const res = await fetch(`/api/cardBox/search?q=${query}`);
 
     if (!res.ok) {
       notifyError("Unexpected Error");
     }
     setBoxes(await res.json());
-  }, []);
+  };
 
   useEffect(() => {
     fetchBoxes();
-  }, [fetchBoxes, query]);
+  }, [query]);
 
   async function handleConnect(boxId: number) {
     const res = await fetch(`/api/cardBox/connection`, {
