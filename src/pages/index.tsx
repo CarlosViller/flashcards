@@ -64,7 +64,7 @@ export default function Root() {
           ))}
         </GridSection>
       ) : (
-        <h1 className="text-center mt-12">{`You don't have any card boxes, start creating ones with the create button!`}</h1>
+        <h1 className="text-center mt-12">{`You don't have any card boxes, start creating one with the create button!`}</h1>
       )}
     </>
   );
