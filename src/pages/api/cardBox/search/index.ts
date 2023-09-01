@@ -38,13 +38,6 @@ async function searchCardBoxes(
           mode: 'insensitive',
         },
       },
-      include: {
-        users: {
-          select: {
-            email: true,
-          },
-        },
-      },
     });
 
     if (cardBoxes) return res.json(cardBoxes);

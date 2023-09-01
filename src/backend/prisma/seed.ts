@@ -21,11 +21,6 @@ async function main() {
           email: "alice@prisma.io",
         },
       },
-      users: {
-        connect: {
-          email: "alice@prisma.io",
-        },
-      },
       cards: {
         create: [
           {

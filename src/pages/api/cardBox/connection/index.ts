@@ -46,7 +46,6 @@ export async function cardBoxConnectionHandler(
           answer: true,
         },
       },
-      users: true,
     },
   });
 
@@ -64,33 +63,12 @@ export async function cardBoxConnectionHandler(
             email: session.user.email,
           },
         },
-        users: {
-          connect: {
-            email: session.user.email,
-          },
-        },
       },
     });
 
     return res.json({ boxId: id });
   } else {
-    // Delete the box if we are removing the last connection
-    if (box.users.length === 1) {
-      await prisma.cardBox.delete({ where: { id: parsedBody.boxId } });
-    } else {
-      await prisma.user.update({
-        where: {
-          email: session.user.email,
-        },
-        data: {
-          boxes: {
-            disconnect: {
-              id: Number(parsedBody.boxId),
-            },
-          },
-        },
-      });
-    }
+    await prisma.cardBox.delete({ where: { id: parsedBody.boxId } });
 
     return res.json({ success: true });
   }

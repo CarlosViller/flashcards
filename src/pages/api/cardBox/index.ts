@@ -51,11 +51,6 @@ async function createCardBox(req: NextApiRequest, res: NextApiResponse) {
           email: session.user.email,
         },
       },
-      users: {
-        connect: {
-          email: session.user.email,
-        },
-      },
     },
   });
 

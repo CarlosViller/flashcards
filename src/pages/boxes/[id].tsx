@@ -4,22 +4,20 @@ import Card from "@/components/Card/Card";
 import Header from "@/components/shared/Header";
 import Loading from "@/components/shared/Loading";
 import Spinner from "@/components/shared/Spinner";
-import { CardBoxWithCards } from "@/types";
+import { CardBoxWithCards, SessionUser } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
-type Props = {
+interface Props extends SessionUser {
   boxId: string;
-  connectedUsers: Array<{ email: string }>;
-};
+}
 
-export default function BoxPage({ boxId, connectedUsers }: Props) {
+export default function BoxPage({ boxId, user }: Props) {
   const [box, setBox] = useState<CardBoxWithCards | null>(null);
   const [loading, setLoading] = useState(true);
-  const { data: session } = useSession();
   const router = useRouter();
   const notify = useContext(ToastContext);
 
@@ -87,9 +85,7 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
       <section className="px-6 mt-4">
         <h1 className="text-2xl text-primary text-center">{box.boxName}</h1>
         <section className="flex gap-4">
-          {connectedUsers.some(
-            (user) => user.email === session?.user?.email
-          ) ? (
+          {user.email === box.creatorEmail ? (
             <>
               <Link href={`/boxes/edit/${boxId}`}>Edit</Link>
               <button onClick={handleRemove}>Remove</button>
@@ -111,7 +107,6 @@ export default function BoxPage({ boxId, connectedUsers }: Props) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
   const session = await getSession(context);
-  let connectedUsers: Array<{ email: string }> = [];
 
   if (!session) {
     return {
@@ -122,22 +117,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const data = await prisma.cardBox.findUnique({
-    where: {
-      id: Number(id),
-    },
-    select: {
-      users: {
-        select: {
-          email: true,
-        },
-      },
-    },
-  });
-
-  if (data) {
-    connectedUsers = data.users;
-  }
-
-  return { props: { boxId: id, connectedUsers } };
+  return { props: { boxId: id, user: session.user } };
 }
