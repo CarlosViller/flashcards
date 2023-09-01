@@ -17,7 +17,7 @@ export default function Header() {
       <div className="flex align-middle gap-3">
         <Link
           href="/create"
-          className="text-white px-4 mr-6 rounded-md border-white border-2"
+          className="create-button text-white px-4 mr-6 rounded-md border-white border-2"
         >
           Create
         </Link>

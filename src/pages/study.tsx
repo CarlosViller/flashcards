@@ -2,14 +2,14 @@ import Card from "@/components/Card/Card";
 import Header from "@/components/shared/Header";
 import Spinner from "@/components/shared/Spinner";
 import { MAX_CARDS } from "@/constants";
-import { CardBoxWithCards, SessionProps } from "@/types";
+import { CardBoxWithCards } from "@/types";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 
-interface Props extends SessionProps {
+interface Props {
   boxId: string;
 }
 
@@ -82,5 +82,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  return { props: { boxId, session } };
+  return { props: { boxId } };
 }
