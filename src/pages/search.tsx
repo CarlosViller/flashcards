@@ -14,7 +14,7 @@ interface Props {
 
 export default function SearchPage({ query }: Props) {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCardsAndUsers>>([]);
-  const { notifyError } = useContext(ToastContext);
+  const { notifyError, notifySuccess } = useContext(ToastContext);
   const router = useRouter();
 
   const fetchBoxes = async () => {
@@ -22,7 +22,9 @@ export default function SearchPage({ query }: Props) {
 
     if (!res.ok) {
       notifyError("Unexpected Error");
+      return;
     }
+
     setBoxes(await res.json());
   };
 
@@ -37,12 +39,14 @@ export default function SearchPage({ query }: Props) {
     });
 
     if (!res.ok) {
-      console.error(res);
+      notifyError("Cannot make a copy");
+      return;
     }
 
     const { boxId: newBoxId } = await res.json();
 
     router.push(`/boxes/${newBoxId}`);
+    notifySuccess("Box copy successfully");
   }
 
   return (

@@ -9,7 +9,7 @@ import { ToastContext } from "@/ToastContext";
 import Loading from "@/components/shared/Loading";
 
 export default function Root() {
-  const [boxes, setBoxes] = useState<Array<CardBoxWithCards>>([]);
+  const [boxes, setBoxes] = useState<CardBoxWithCards[]>([]);
   const { notifyError } = useContext(ToastContext);
   const [loading, setLoading] = useState(true);
   
