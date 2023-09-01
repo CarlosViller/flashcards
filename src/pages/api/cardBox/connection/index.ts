@@ -61,7 +61,7 @@ export async function cardBoxConnectionHandler(
         },
         creator: {
           connect: {
-            email: box.creatorEmail,
+            email: session.user.email,
           },
         },
         users: {
