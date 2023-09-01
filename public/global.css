@@ -46,6 +46,7 @@ button:focus {
 
 .nav-card-button {
   transition: all 0.2s ease-in-out;
+  /* min-width: 20px; */
 }
 
 .nav-card-button:hover {
@@ -86,4 +87,14 @@ button.secondary,
 
 .create-button:hover {
   @apply bg-white text-primary
+}
+
+.submit-box-btn {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.submit-box-btn:not(:disabled):hover {
+  transform: scale(1.25);
 }

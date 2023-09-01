@@ -90,7 +90,7 @@ export default function EditPage({ boxId, user }: Props) {
           cards={editableCards}
         />
         <button
-          className="primary"
+          className="primary submit-box-btn"
           disabled={box.boxName === ""}
           onClick={handleSubmit}
         >

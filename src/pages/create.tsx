@@ -50,7 +50,7 @@ export default function CreateBox() {
           cards={cards}
         />
         <button
-          className="primary hover:scale-125 transition-transform"
+          className="primary submit-box-btn"
           disabled={boxName === ""}
           onClick={handleCreate}
         >

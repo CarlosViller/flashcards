@@ -27,6 +27,10 @@ export default function CardRoll({
 
   const flipCard = () => setFlip((prevState) => !prevState);
 
+  const isCurrentCardFilled = () =>
+    cards[currentCardIndex].answer.length > 0 &&
+    cards[currentCardIndex].question.length > 0;
+
   const goPrev = () => {
     setCurrentCardIndex((prevPosition) => {
       const current = prevPosition - 1;
@@ -89,7 +93,7 @@ export default function CardRoll({
         <button
           className="nav-card-button disabled:text-gray-300 text-black"
           onClick={goNext}
-          disabled={currentCard === MAX_CARDS}
+          disabled={currentCard === MAX_CARDS || !isCurrentCardFilled()}
         >
           <FontAwesomeIcon
             icon={faArrowRight}

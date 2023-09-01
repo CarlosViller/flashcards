@@ -9,6 +9,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastProvider } from "@/ToastContext";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false;
+
 const baloo_2 = Baloo_2({ subsets: ["latin"] });
 
 export default function App({
