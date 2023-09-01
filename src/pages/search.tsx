@@ -6,6 +6,7 @@ import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "@/ToastContext";
+import { useRouter } from "next/router";
 
 interface Props {
   query: string;
@@ -14,6 +15,7 @@ interface Props {
 export default function SearchPage({ query }: Props) {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCardsAndUsers>>([]);
   const { notifyError } = useContext(ToastContext);
+  const router = useRouter();
 
   const fetchBoxes = async () => {
     const res = await fetch(`/api/cardBox/search?q=${query}`);
@@ -38,7 +40,9 @@ export default function SearchPage({ query }: Props) {
       console.error(res);
     }
 
-    await fetchBoxes();
+    const { boxId: newBoxId } = await res.json();
+
+    router.push(`/boxes/${newBoxId}`);
   }
 
   return (

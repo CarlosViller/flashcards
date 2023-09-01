@@ -28,8 +28,6 @@ export async function cardBoxConnectionHandler(
   const parsedBody = JSON.parse(req.body);
   const { error } = schema.validate(parsedBody);
 
-  console.log(parsedBody)
-
   if (error) {
     return res.status(400).json({ message: error });
   }
@@ -39,34 +37,61 @@ export async function cardBoxConnectionHandler(
   if (!session?.user?.email) {
     return res.status(401).json({ message: "You must be logged in." });
   }
+  const box = await prisma.cardBox.findUnique({
+    where: { id: Number(parsedBody.boxId) },
+    include: {
+      cards: {
+        select: {
+          question: true,
+          answer: true,
+        },
+      },
+      users: true,
+    },
+  });
+
+  if (!box) return res.status(500).json({ message: "boxId not found" });
 
   if (action === "connect") {
-    await prisma.user.update({
-      where: {
-        email: session.user.email,
-      },
+    const { id } = await prisma.cardBox.create({
       data: {
-        boxes: {
+        boxName: box.boxName,
+        cards: {
+          create: box.cards,
+        },
+        creator: {
           connect: {
-            id: Number(parsedBody.boxId),
+            email: box.creatorEmail,
+          },
+        },
+        users: {
+          connect: {
+            email: session.user.email,
           },
         },
       },
     });
-  } else {
-    await prisma.user.update({
-      where: {
-        email: session.user.email,
-      },
-      data: {
-        boxes: {
-          disconnect: {
-            id: Number(parsedBody.boxId),
-          },
-        },
-      },
-    });
-  }
 
-  return res.json({ success: true });
+    return res.json({ boxId: id });
+  } else {
+    // Delete the box if we are removing the last connection
+    if (box.users.length === 1) {
+      await prisma.cardBox.delete({ where: { id: parsedBody.boxId } });
+    } else {
+      await prisma.user.update({
+        where: {
+          email: session.user.email,
+        },
+        data: {
+          boxes: {
+            disconnect: {
+              id: Number(parsedBody.boxId),
+            },
+          },
+        },
+      });
+    }
+
+    return res.json({ success: true });
+  }
 }

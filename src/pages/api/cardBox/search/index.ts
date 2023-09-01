@@ -35,6 +35,7 @@ async function searchCardBoxes(
       where: {
         boxName: {
           contains: q,
+          mode: 'insensitive',
         },
       },
       include: {
