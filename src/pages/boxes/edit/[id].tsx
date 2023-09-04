@@ -81,7 +81,7 @@ export default function EditPage({ boxId, user }: Props) {
       <section className="container flex flex-col items-center mx-auto gap-6 mt-10">
         <div className="text-center">
           <h2>Name of the box</h2>
-          <Input value={box.boxName} setValue={setBoxName} />
+          <Input value={boxName} setValue={setBoxName} />
         </div>
         <CardRoll
           setCards={setEditableCards}
@@ -91,7 +91,7 @@ export default function EditPage({ boxId, user }: Props) {
         />
         <button
           className="primary submit-box-btn"
-          disabled={box.boxName === ""}
+          disabled={boxName === ""}
           onClick={handleSubmit}
         >
           Save
