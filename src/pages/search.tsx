@@ -7,6 +7,7 @@ import { getSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "@/ToastContext";
 import { useRouter } from "next/router";
+import Loading from "@/components/shared/Loading";
 
 interface Props {
   query: string;
@@ -15,6 +16,7 @@ interface Props {
 export default function SearchPage({ query }: Props) {
   const [boxes, setBoxes] = useState<Array<CardBoxWithCardsAndUsers>>([]);
   const { notifyError, notifySuccess } = useContext(ToastContext);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const fetchBoxes = async () => {
@@ -22,10 +24,10 @@ export default function SearchPage({ query }: Props) {
 
     if (!res.ok) {
       notifyError("Unexpected Error");
-      return;
+    } else {
+      setBoxes(await res.json());
     }
-
-    setBoxes(await res.json());
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -49,18 +51,28 @@ export default function SearchPage({ query }: Props) {
     notifySuccess("Box copy successfully");
   }
 
+  if (loading) return <Loading />;
+
   return (
     <>
       <Header />
-      <GridSection title={query}>
-        {boxes.map((box) => (
-          <MiniBoxSearchItem
-            key={box.id}
-            box={box}
-            handleConnect={handleConnect}
-          />
-        ))}
-      </GridSection>
+      {boxes.length !== 0 ? (
+        <GridSection title={query}>
+          {boxes.map((box) => (
+            <MiniBoxSearchItem
+              key={box.id}
+              box={box}
+              handleConnect={handleConnect}
+            />
+          ))}
+        </GridSection>
+      ) : (
+        <h1 className="text-center mt-10 text-xl">
+          {`No boxes found for ${query}`}
+          <br />
+          you can create the first box for this!
+        </h1>
+      )}
     </>
   );
 }
