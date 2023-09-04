@@ -16,10 +16,10 @@ export default function Header() {
         </Link>
         <SearchBar />
       </div>
-      <div className="flex align-middle gap-3">
+      <div className="flex items-center gap-5">
         <Link
           href="/create"
-          className="create-button text-white px-4 mr-6 rounded-md border-white border-2"
+          className="create-button text-white px-4 rounded-md border-white border-2"
         >
           Create
         </Link>
@@ -27,7 +27,7 @@ export default function Header() {
           <ProfilePic
             image={session?.user?.image}
             defaultIcon="/assets/default-user-logo-white.svg"
-            
+            size={55}            
           />
         </Link>
         <button
@@ -36,8 +36,6 @@ export default function Header() {
         >
           <FontAwesomeIcon
             icon={faRightFromBracket}
-            size="sm"
-            className="w-[30px]"
           />
         </button>
       </div>
