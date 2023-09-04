@@ -6,7 +6,7 @@ import { Card, CardBoxWithCards, SessionUser } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 interface Props extends SessionUser {
   boxId: number;
@@ -20,41 +20,42 @@ export default function EditPage({ boxId, user }: Props) {
   const { notifyError, notifySuccess } = useContext(ToastContext);
   const router = useRouter();
 
-  useEffect(() => {
-    async function fetchBoxWithId() {
-      const res = await fetch(`/api/cardBox/${boxId}`);
-      if (!res.ok) return;
+  const fetchBoxWithId = useCallback(async () => {
+    const res = await fetch(`/api/cardBox/${boxId}`);
+    if (!res.ok) return;
 
-      const payload: CardBoxWithCards | null = await res.json();
+    const payload: CardBoxWithCards | null = await res.json();
 
-      if (!payload) return;
+    if (!payload) return;
 
-      setBox(payload);
-      setBoxName(payload.boxName);
-      setEditableCards(
-        payload.cards.map((card) => ({
-          question: card.question,
-          answer: card.answer,
-        }))
-      );
-    }
-    fetchBoxWithId();
+    setBox(payload);
+    setBoxName(payload.boxName);
+    setEditableCards(
+      payload.cards.map((card) => ({
+        question: card.question,
+        answer: card.answer,
+      }))
+    );
   }, [boxId]);
+
+  useEffect(() => {
+    fetchBoxWithId();
+  }, []);
 
   async function handleSubmit() {
     const res = await fetch("/api/cardBox", {
-      method: "POST",
-      body: JSON.stringify({ boxName, cards: editableCards }),
+      method: "PUT",
+      body: JSON.stringify({ boxName, cards: editableCards, boxId }),
     });
 
     if (!res.ok) {
       notifyError("Cannot save box!");
-      return;
+    } else {
+      router.push(`/boxes/${boxId}`);
+      notifySuccess("Box saved!");
     }
 
-    const { id } = await res.json();
-    notifySuccess("Box saved!");
-    router.push(`/boxes/${id}`);
+    return;
   }
 
   if (!box) {

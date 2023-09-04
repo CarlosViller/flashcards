@@ -12,12 +12,64 @@ export default async function handler(
     return createCardBox(req, res);
   } else if (req.method === "GET") {
     return fetchCardBoxes(req, res);
+  } else if (req.method === "PUT") {
+    return updateCardBox(req, res);
   }
 
   return res.status(400).json({ message: "Bad request" });
 }
 
-const schema = Joi.object({
+const schemaPut = Joi.object({
+  boxName: Joi.string().required(),
+  cards: Joi.array().items(
+    Joi.object({
+      question: Joi.string().required(),
+      answer: Joi.string().required(),
+    }).required()
+  ),
+  boxId: Joi.string().required(),
+}).required();
+
+async function updateCardBox(req: NextApiRequest, res: NextApiResponse) {
+  const parsedBody = JSON.parse(req.body);
+  const { error } = schemaPut.validate(parsedBody);
+
+  if (error) {
+    return res.status(400).json({ message: error });
+  }
+
+  const session = await getServerSession(req, res, authOptions);
+  const { boxName, cards } = parsedBody;
+
+  if (!session?.user?.email) return res.status(401).json({});
+
+  const [_, cardBox] = await prisma.$transaction([
+    prisma.cardBox.update({
+      where: { id: Number(parsedBody.boxId) },
+      data: {
+        cards: {
+          deleteMany: { boxId: Number(parsedBody.boxId) },
+        },
+      },
+    }),
+    prisma.cardBox.update({
+      where: { id: Number(parsedBody.boxId) },
+      data: {
+        boxName,
+        cards: {
+          create: cards,
+        },
+      },
+      include: {
+        cards: true,
+      },
+    }),
+  ]);
+
+  return res.status(200).json(cardBox);
+}
+
+const schemaPost = Joi.object({
   boxName: Joi.string().required(),
   cards: Joi.array().items(
     Joi.object({
@@ -29,7 +81,7 @@ const schema = Joi.object({
 
 async function createCardBox(req: NextApiRequest, res: NextApiResponse) {
   const parsedBody = JSON.parse(req.body);
-  const { error } = schema.validate(parsedBody);
+  const { error } = schemaPost.validate(parsedBody);
 
   if (error) {
     return res.status(400).json({ message: error });
