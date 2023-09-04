@@ -66,7 +66,7 @@ async function updateCardBox(req: NextApiRequest, res: NextApiResponse) {
     }),
   ]);
 
-  return res.status(200).json(cardBox);
+  return res.status(200).json({id: cardBox.id});
 }
 
 const schemaPost = Joi.object({

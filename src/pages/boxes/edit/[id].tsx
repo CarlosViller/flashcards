@@ -51,7 +51,8 @@ export default function EditPage({ boxId, user }: Props) {
     if (!res.ok) {
       notifyError("Cannot save box!");
     } else {
-      router.push(`/boxes/${boxId}`);
+      const id = await res.json();
+      router.push(`/boxes/${id}`);
       notifySuccess("Box saved!");
     }
 
