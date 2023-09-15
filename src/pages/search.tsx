@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "@/ToastContext";
 import { useRouter } from "next/router";
 import Loading from "@/components/shared/Loading";
+import Link from "next/link";
 
 interface Props {
   query: string;
@@ -65,11 +66,19 @@ export default function SearchPage({ query }: Props) {
           ))}
         </GridSection>
       ) : (
-        <h1 className="text-center mt-10 text-xl">
-          {`No boxes found for ${query}`}
-          <br />
-          you can create the first box for this!
-        </h1>
+        <section className="flex flex-col items-center justify-center gap-2">
+          <h1 className="text-center mt-10 text-xl">
+            {`No boxes found for ${query}`}
+            <br />
+            you can create the first box for this!
+          </h1>
+          <Link
+            href="/create"
+            className="create-button text-primary px-4 py-1 rounded-md border-primary border-2"
+          >
+            Create
+          </Link>
+        </section>
       )}
     </>
   );
