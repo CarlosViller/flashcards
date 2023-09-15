@@ -40,8 +40,9 @@ export default function StudyPage({ boxId }: Props) {
   if (!box) return <Spinner />;
 
   return (
-    <>
-      <section className="flex gap-4 justify-center items-center relative py-2 mt-10">
+    <section className="mt-10">
+      <h1 className="text-2xl text-primary text-center mb-2">{box.boxName}</h1>
+      <section className="flex gap-4 justify-center items-center relative py-2">
         <button
           className="nav-card-button disabled:text-gray-300 text-black"
           onClick={goPrev}
@@ -64,7 +65,7 @@ export default function StudyPage({ boxId }: Props) {
           />
         </button>
       </section>
-    </>
+    </section>
   );
 }
 
