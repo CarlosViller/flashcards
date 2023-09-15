@@ -14,7 +14,7 @@ export default function MiniBoxOwned({ box, handleDisconnect }: Props) {
   return (
     <div className="relative minibox">
       <article className="flex flex-col justify-between items-center relative h-full p-6 border-2 gap-8 border-primary rounded-md">
-        <a href={`/boxes/${box.id}`}>{box.boxName}</a>
+        <Link href={`/boxes/${box.id}`}>{box.boxName}</Link>
         <Link
           href={`/study?boxId=${box.id}`}
           className="start-study-btn btn-primary"

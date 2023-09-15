@@ -12,7 +12,7 @@ export default function Root() {
   const [boxes, setBoxes] = useState<CardBoxWithCards[]>([]);
   const { notifyError } = useContext(ToastContext);
   const [loading, setLoading] = useState(true);
-  
+
   const fetchBoxes = useCallback(async () => {
     setLoading(true);
     const res = await fetch("/api/cardBox");
@@ -25,8 +25,8 @@ export default function Root() {
 
     setLoading(false);
     return;
-  }, [notifyError])
-    
+  }, [notifyError]);
+
   async function handleDisconnect(boxId: number) {
     const res = await fetch(`/api/cardBox/connection`, {
       method: "PUT",
@@ -45,14 +45,12 @@ export default function Root() {
     fetchBoxes();
   }, [fetchBoxes]);
 
-
   if (loading) {
     return <Loading />;
   }
 
   return (
     <>
-      <Header />
       {boxes.length > 0 ? (
         <GridSection title="Your boxes">
           {boxes.map((box) => (

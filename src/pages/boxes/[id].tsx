@@ -71,7 +71,6 @@ export default function BoxPage({ boxId, user }: Props) {
   if (!box)
     return (
       <>
-        <Header />
         <section className=" mt-6 text-center">
           <p>404</p>
           <p>Box cannot be found</p>
@@ -81,7 +80,6 @@ export default function BoxPage({ boxId, user }: Props) {
 
   return (
     <>
-      <Header />
       <section className="px-6 mt-4">
         <h1 className="text-2xl text-primary text-center">{box.boxName}</h1>
         <section className="flex gap-4">

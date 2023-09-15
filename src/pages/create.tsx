@@ -37,7 +37,6 @@ export default function CreateBox() {
 
   return (
     <>
-      <Header />
       <section className="container flex flex-col items-center mx-auto gap-6 my-5">
         <div className="text-center">
           <h2>Name of the box</h2>

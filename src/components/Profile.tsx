@@ -19,12 +19,12 @@ export default function Profile({ user, id }: Props) {
   const fetchBoxes = useCallback(async () => {
     setLoading(true);
     const res = await fetch(`/api/user/${id}/cardBoxes`);
-    
+
     if (!res.ok) {
       notifyError("Unexpected Error");
     } else {
-      const data = await res.json()
-      console.log(data)
+      const data = await res.json();
+      console.log(data);
       setBoxes(data);
     }
 
@@ -39,7 +39,6 @@ export default function Profile({ user, id }: Props) {
   if (!user) {
     return (
       <>
-        <Header />
         <h1>User not found</h1>
       </>
     );
@@ -47,7 +46,6 @@ export default function Profile({ user, id }: Props) {
 
   return (
     <div>
-      <Header />
       <div className="flex flex-col items-center pt-10 text-center gap-4 container mx-auto">
         <ProfilePic size={100} image={user.image} />
         <div>

@@ -21,6 +21,14 @@ button:focus {
     transform: rotate(360deg);
   }
 }
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #40b3a2; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
 
 @keyframes flip {
   0% {
@@ -31,14 +39,6 @@ button:focus {
   }
 }
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #40b3a2; /* Black */
-  border-radius: 50%;
-  animation: spinner 1.5s linear infinite;
-}
 
 .flip {
   animation: flip 0.1s linear;

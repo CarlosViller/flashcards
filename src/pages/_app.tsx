@@ -11,6 +11,7 @@ import { ToastProvider } from "@/ToastContext";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import Header from "@/components/shared/Header";
 config.autoAddCss = false;
 
 const baloo_2 = Baloo_2({ subsets: ["latin"] });
@@ -26,6 +27,7 @@ export default function App({
           <link rel="icon" href="/icon.png" />
           <title>Kartu - Create your own flashcards</title>
         </Head>
+        <Header />
         <main className={baloo_2.className}>
           <Suspense fallback={<Loading />}>
             <Component {...pageProps} />

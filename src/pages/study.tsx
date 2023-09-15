@@ -41,7 +41,6 @@ export default function StudyPage({ boxId }: Props) {
 
   return (
     <>
-      <Header />
       <section className="flex gap-4 justify-center items-center relative py-2 mt-10">
         <button
           className="nav-card-button disabled:text-gray-300 text-black"

@@ -55,7 +55,6 @@ export default function SearchPage({ query }: Props) {
 
   return (
     <>
-      <Header />
       {boxes.length !== 0 ? (
         <GridSection title={query}>
           {boxes.map((box) => (

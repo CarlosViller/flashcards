@@ -62,7 +62,6 @@ export default function EditPage({ boxId, user }: Props) {
   if (!box) {
     return (
       <>
-        <Header />
         <h1>Box not found</h1>
       </>
     );
@@ -71,7 +70,6 @@ export default function EditPage({ boxId, user }: Props) {
   if (user.email !== box?.creatorEmail) {
     return (
       <>
-        <Header />
         <div>You cannot edit this box</div>
       </>
     );
@@ -79,7 +77,6 @@ export default function EditPage({ boxId, user }: Props) {
 
   return (
     <>
-      <Header />
       <section className="container flex flex-col items-center mx-auto gap-6 mt-10">
         <div className="text-center">
           <h2>Name of the box</h2>
