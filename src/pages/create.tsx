@@ -1,6 +1,5 @@
 import { ToastContext } from "@/ToastContext";
 import CardRoll from "@/components/Card/CardRoll";
-import Header from "@/components/shared/Header";
 import Input from "@/components/shared/Input";
 import { Card } from "@/types";
 import { GetServerSidePropsContext } from "next";

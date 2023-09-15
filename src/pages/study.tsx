@@ -1,5 +1,4 @@
 import Card from "@/components/Card/Card";
-import Header from "@/components/shared/Header";
 import Spinner from "@/components/shared/Spinner";
 import { MAX_CARDS } from "@/constants";
 import { CardBoxWithCards } from "@/types";

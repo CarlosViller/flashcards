@@ -1,6 +1,5 @@
 import GridSection from "@/components/shared/GridSection";
 import MiniBoxOwned from "@/components/MiniBoxOwned";
-import Header from "@/components/shared/Header";
 import { CardBoxWithCards } from "@/types";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { getSession } from "next-auth/react";

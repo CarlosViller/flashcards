@@ -1,12 +1,9 @@
 import { ToastContext } from "@/ToastContext";
-import prisma from "@/backend/prisma/client";
 import Card from "@/components/Card/Card";
-import Header from "@/components/shared/Header";
 import Loading from "@/components/shared/Loading";
-import Spinner from "@/components/shared/Spinner";
 import { CardBoxWithCards, SessionUser } from "@/types";
 import { GetServerSidePropsContext } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";

@@ -1,6 +1,5 @@
 import GridSection from "@/components/shared/GridSection";
 import MiniBoxSearchItem from "@/components/MiniBoxSearchItem";
-import Header from "@/components/shared/Header";
 import { CardBoxWithCardsAndUsers } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
