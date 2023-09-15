@@ -58,6 +58,7 @@ export default function Profile({ user, id }: Props) {
             ) : (
               <>
                 <h2 className="text-xl font-medium">Boxes</h2>
+                <h4 className="text-lg">{boxes.length}</h4>
                 <GridSection>
                   {boxes.map((box) => (
                     <MiniBox key={box.id} box={box} />
