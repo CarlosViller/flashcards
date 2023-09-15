@@ -4,9 +4,13 @@ import ProfilePic from "./ProfilePic";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBar from "./SearchBar";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const { data: session } = useSession();
+  const router = useRouter();
+
+  if (router.pathname === "/login") return null;
 
   return (
     <header className="relative top-0 h-10 bg-primary flex items-center justify-between px-5 shadow-sm">
@@ -27,16 +31,14 @@ export default function Header() {
           <ProfilePic
             image={session?.user?.image}
             defaultIcon="/assets/default-user-logo-white.svg"
-            size={55}            
+            size={55}
           />
         </Link>
         <button
           onClick={() => signOut()}
           className=" text-white flex items-center"
         >
-          <FontAwesomeIcon
-            icon={faRightFromBracket}
-          />
+          <FontAwesomeIcon icon={faRightFromBracket} />
         </button>
       </div>
     </header>

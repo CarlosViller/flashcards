@@ -3,6 +3,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MiniBoxAction from "./shared/MiniBoxAction";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {
   box: CardBoxWithCardsAndUsers;
@@ -17,7 +18,8 @@ export default function MiniBoxSearchItem({ box, handleConnect }: Props) {
       </article>
 
       <MiniBoxAction onClick={() => handleConnect(box.id)} variant="add">
-        <FontAwesomeIcon className="text-white" icon={faPlus} size="2xs" />
+        {/* <FontAwesomeIcon className="text-white" icon={faPlus} size="2xs" /> */}
+        <Image width={25} height={25} src="/copy.svg" alt="Copy card box" />
       </MiniBoxAction>
     </div>
   );

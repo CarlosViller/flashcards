@@ -24,7 +24,6 @@ export default function Profile({ user, id }: Props) {
       notifyError("Unexpected Error");
     } else {
       const data = await res.json();
-      console.log(data);
       setBoxes(data);
     }
 
@@ -35,14 +34,6 @@ export default function Profile({ user, id }: Props) {
   useEffect(() => {
     fetchBoxes();
   }, [fetchBoxes]);
-
-  if (!user) {
-    return (
-      <>
-        <h1>User not found</h1>
-      </>
-    );
-  }
 
   return (
     <div>

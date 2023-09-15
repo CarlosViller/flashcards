@@ -15,7 +15,7 @@ async function main() {
     },
     update: {},
     create: {
-      boxName: "Test box",
+      boxName: "Alice box",
       creator: {
         connect: {
           email: "alice@prisma.io",
