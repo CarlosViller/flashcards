@@ -21,14 +21,14 @@ export default function SearchBar() {
   }
 
   return (
-    <section className="bg-white rounded-lg px-4 flex items-center w-max">
+    <section className="bg-white rounded-lg px-4 flex items-center">
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyUp={handleSearch}
         type="text"
         placeholder="Search boxes"
-        className="text-xs py-[4px] w-[350px]"
+        className="text-xs py-[4px] lg:w-[350px]"
       />
       <Link href={`/search?q=${query}`}>
         <FontAwesomeIcon icon={faMagnifyingGlass} className="text-primary w-[18px]" />
