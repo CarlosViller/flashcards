@@ -1,5 +1,4 @@
 import { Card as CardT, CardBox } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
 
 export type CardBoxWithCards = CardBox & {
   cards: CardT[];
