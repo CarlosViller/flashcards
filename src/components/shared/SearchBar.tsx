@@ -2,11 +2,17 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    if(router.pathname !== "/search") {
+      setQuery("")
+    }
+  }, [router.pathname])
 
   function handleSearch(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
