@@ -50,7 +50,10 @@ export default function StudyPage({ boxId }: Props) {
         >
           <FontAwesomeIcon icon={faArrowLeft} className="text-inherit" />
         </button>
-        <Card card={box.cards[currentCardIndex]} />
+
+        <div className="min-w-[550px]">
+          <Card card={box.cards[currentCardIndex]} />
+        </div>
         <button
           className="nav-card-button disabled:text-gray-300 text-black"
           onClick={goNext}
