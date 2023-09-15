@@ -6,6 +6,7 @@ import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { ToastContext } from "@/ToastContext";
 import Loading from "@/components/shared/Loading";
+import Link from "next/link";
 
 export default function Root() {
   const [boxes, setBoxes] = useState<CardBoxWithCards[]>([]);
@@ -49,7 +50,13 @@ export default function Root() {
   }
 
   return (
-    <>
+    <section className="mt-6 flex flex-col items-center">
+      <Link
+        href="/create"
+        className="create-button w-max mx-auto text-white px-4 py-1 rounded-md bg-primary border-primary border-2"
+      >
+        Create
+      </Link>
       {boxes.length > 0 ? (
         <GridSection title="Your boxes">
           {boxes.map((box) => (
@@ -63,7 +70,7 @@ export default function Root() {
       ) : (
         <h1 className="text-center mt-12">{`You don't have any card boxes, start creating one with the create button!`}</h1>
       )}
-    </>
+    </section>
   );
 }
 
