@@ -1,5 +1,4 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import Header from "./shared/Header";
 import ProfilePic from "./shared/ProfilePic";
 import Loading from "./shared/Loading";
 import GridSection from "./shared/GridSection";
@@ -35,12 +34,14 @@ export default function Profile({ user, id }: Props) {
     fetchBoxes();
   }, [fetchBoxes]);
 
+
   return (
     <div>
       <div className="flex flex-col items-center pt-10 text-center gap-4 container mx-auto">
         <ProfilePic size={100} image={user.image} />
         <div>
           <h1 className="text-2xl">{user.name}</h1>
+          
         </div>
         <div className="flex justify-between gap-10">
           <div className="flex flex-col">

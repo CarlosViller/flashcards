@@ -68,7 +68,7 @@ export async function cardBoxConnectionHandler(
 
     return res.json({ boxId: id });
   } else {
-    await prisma.cardBox.delete({ where: { id: parsedBody.boxId } });
+    await prisma.cardBox.delete({ where: { id: Number(parsedBody.boxId) } });
 
     return res.json({ success: true });
   }
