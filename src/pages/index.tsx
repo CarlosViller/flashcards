@@ -51,12 +51,6 @@ export default function Root() {
 
   return (
     <section className="mt-6 flex flex-col items-center">
-      <Link
-        href="/create"
-        className="create-button w-max mx-auto text-white px-4 py-1 rounded-md bg-primary border-primary border-2"
-      >
-        Create
-      </Link>
       {boxes.length > 0 ? (
         <GridSection title="Your boxes">
           {boxes.map((box) => (

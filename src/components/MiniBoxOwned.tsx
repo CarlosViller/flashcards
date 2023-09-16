@@ -4,6 +4,7 @@ import { CardBox } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import MiniBoxAction from "./shared/MiniBoxAction";
+import StartButton from "./StartButton";
 
 type Props = {
   box: CardBox;
@@ -15,12 +16,7 @@ export default function MiniBoxOwned({ box, handleDisconnect }: Props) {
     <div className="relative minibox">
       <article className="flex flex-col justify-between items-center relative h-full p-6 border-2 gap-8 border-primary rounded-md">
         <Link href={`/boxes/${box.id}`}>{box.boxName}</Link>
-        <Link
-          href={`/study?boxId=${box.id}`}
-          className="start-study-btn btn-primary"
-        >
-          Start
-        </Link>
+        <StartButton id={box.id} />
       </article>
       <MiniBoxAction onClick={() => handleDisconnect(box.id)} variant="remove">
         <FontAwesomeIcon className="text-white" icon={faMinus} />

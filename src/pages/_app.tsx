@@ -32,7 +32,7 @@ export default function App({
           </Head>
           <MobileSearch />
           <Header />
-          <main className={baloo_2.className}>
+          <main className={`${baloo_2.className} my-6`}>
             <Suspense fallback={<Loading />}>
               <Component {...pageProps} />
               <ToastContainer

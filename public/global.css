@@ -39,7 +39,6 @@ button:focus {
   }
 }
 
-
 .flip {
   animation: flip 0.1s linear;
 }
@@ -55,7 +54,7 @@ button:focus {
 
 button.primary,
 .btn-primary {
-  @apply rounded bg-primary px-3 py-1 text-white mx-auto;
+  @apply rounded bg-primary px-3 py-1 text-white;
 }
 button.primary:disabled,
 .btn-primary:disabled {
@@ -86,7 +85,7 @@ button.secondary,
 }
 
 .create-button:hover {
-  @apply bg-white text-primary
+  @apply bg-white text-primary;
 }
 
 .submit-box-btn {
@@ -97,4 +96,12 @@ button.secondary,
 
 .submit-box-btn:not(:disabled):hover {
   transform: scale(1.25);
+}
+
+@media (max-width: 500px) {
+  .minibox button,
+  .minibox .start-study-btn {
+    opacity: 1;
+    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 }

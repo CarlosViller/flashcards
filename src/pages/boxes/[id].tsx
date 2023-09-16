@@ -1,5 +1,6 @@
 import { ToastContext } from "@/ToastContext";
 import Card from "@/components/Card/Card";
+import StartButton from "@/components/StartButton";
 import Loading from "@/components/shared/Loading";
 import { CardBoxWithCards, SessionUser } from "@/types";
 import { GetServerSidePropsContext } from "next";
@@ -20,47 +21,44 @@ export default function BoxPage({ boxId, user }: Props) {
 
   useEffect(() => {
     async function fetchBoxWithId() {
-      const res = await fetch(`/api/cardBox/${boxId}`);
-      if (!res.ok) console.error(res);
-
-      const payload = await res.json();
-
-      if (!payload) return;
-
-      setBox(payload);
-      setLoading(false);
+      fetch(`/api/cardBox/${boxId}`)
+        .then((res) => res.json())
+        .then((data) => setBox(data))
+        .catch(() => setBox(null))
+        .finally(() => {
+          setLoading(false);
+        });
     }
     fetchBoxWithId();
   }, [boxId]);
 
   async function handleRemove() {
-    const res = await fetch(`/api/cardBox/connection`, {
+    fetch(`/api/cardBox/connection`, {
       method: "PUT",
       body: JSON.stringify({ boxId }),
-    });
-
-    if (!res.ok) {
-      notify.notifyError("Cannot remove box");
-      return;
-    }
-
-    notify.notifySuccess("Box removed");
-    router.push("/");
+    })
+      .then(() => {
+        notify.notifySuccess("Box removed");
+        router.push("/");
+      })
+      .catch(() => {
+        notify.notifyError("Cannot remove box");
+      });
   }
 
   async function handleAdd() {
-    const res = await fetch(`/api/cardBox/connection`, {
+    fetch(`/api/cardBox/connection`, {
       method: "POST",
-      body: JSON.stringify({ boxId: boxId }),
-    });
-
-    if (!res.ok) {
-      console.error(res);
-    }
-
-    const { id } = await res.json();
-
-    router.push(`/boxes/${id}`);
+      body: JSON.stringify({ boxId }),
+    })
+      .then((res) => res.json())
+      .then(({ boxId }) => {
+        notify.notifyError("Box copied!");
+        router.push(`/boxes/${boxId}`);
+      })
+      .catch(() => {
+        notify.notifyError("Cannot add box");
+      });
   }
 
   if (loading) return <Loading />;
@@ -79,11 +77,16 @@ export default function BoxPage({ boxId, user }: Props) {
     <>
       <section className="px-6 mt-4">
         <h1 className="text-2xl text-primary text-center">{box.boxName}</h1>
-        <section className="flex gap-4">
+        <section className="flex gap-4 items-center justify-center my-4">
           {user.email === box.creatorEmail ? (
             <>
-              <Link href={`/boxes/edit/${boxId}`}>Edit</Link>
-              <button onClick={handleRemove}>Remove</button>
+              <StartButton id={box.id} />
+              <Link className="btn-primary" href={`/boxes/edit/${boxId}`}>
+                Edit
+              </Link>
+              <button className="btn-primary" onClick={handleRemove}>
+                Remove
+              </button>
             </>
           ) : (
             <button onClick={handleAdd}>Add</button>

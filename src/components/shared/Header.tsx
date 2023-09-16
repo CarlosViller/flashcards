@@ -27,6 +27,12 @@ export default function Header() {
         {!isMobile && <SearchBar />}
       </div>
       <section className="flex items-center gap-4">
+        <Link
+          href="/create"
+          className="create-button w-max mx-auto text-white px-4 rounded-md border-white border-2"
+        >
+          Create
+        </Link>
         {isMobile && (
           <button onClick={toggleMobileSearch}>
             <FontAwesomeIcon
