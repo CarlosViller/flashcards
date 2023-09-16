@@ -6,12 +6,15 @@ import { useRouter } from "next/router";
 import { useMediaQuery } from "@/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { MobileSearchContext } from "@/MobileSearchContext";
 
 export default function Header() {
   const { data: session } = useSession();
   const router = useRouter();
-
   const isMobile = useMediaQuery(500);
+
+  const { toggleMobileSearch } = useContext(MobileSearchContext);
 
   if (router.pathname === "/login") return null;
 
@@ -24,13 +27,15 @@ export default function Header() {
         {!isMobile && <SearchBar />}
       </div>
       <section className="flex items-center gap-4">
-        <button onClick={() => console.log("press")}>
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            className="text-white"
-            size="lg"
-          />
-        </button>
+        {isMobile && (
+          <button onClick={toggleMobileSearch}>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              className="text-white"
+              size="lg"
+            />
+          </button>
+        )}
         <Link href="/profile/me" className="flex items-center">
           <ProfilePic
             image={session?.user?.image}

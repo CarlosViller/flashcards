@@ -12,6 +12,8 @@ import { ToastProvider } from "@/ToastContext";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import Header from "@/components/shared/Header";
+import { MobileSearchProvider } from "@/MobileSearchContext";
+import MobileSearch from "@/components/MobileSearch";
 config.autoAddCss = false;
 
 const baloo_2 = Baloo_2({ subsets: ["latin"] });
@@ -23,29 +25,32 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ToastProvider>
-        <Head>
-          <link rel="icon" href="/icon.png" />
-          <title>Kartu - Create your own flashcards</title>
-        </Head>
-        <Header />
-        <main className={baloo_2.className}>
-          <Suspense fallback={<Loading />}>
-            <Component {...pageProps} />
-            <ToastContainer
-              className="mt-14 text-xs"
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
-          </Suspense>
-        </main>
+        <MobileSearchProvider>
+          <Head>
+            <link rel="icon" href="/icon.png" />
+            <title>Kartu - Create your own flashcards</title>
+          </Head>
+          <MobileSearch />
+          <Header />
+          <main className={baloo_2.className}>
+            <Suspense fallback={<Loading />}>
+              <Component {...pageProps} />
+              <ToastContainer
+                className="mt-14 text-xs"
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
+            </Suspense>
+          </main>
+        </MobileSearchProvider>
       </ToastProvider>
     </SessionProvider>
   );
