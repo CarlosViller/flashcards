@@ -49,7 +49,11 @@ export default function CreateBox() {
         />
         <button
           className="primary submit-box-btn"
-          disabled={boxName === ""}
+          disabled={
+            boxName === "" ||
+            (cards.length === 1 &&
+              (cards[0].question === "" || cards[0].answer === ""))
+          }
           onClick={handleCreate}
         >
           Create box
