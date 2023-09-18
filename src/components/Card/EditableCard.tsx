@@ -48,7 +48,7 @@ export default function EditableCard({
   return (
     <div
       ref={cardRef}
-      className={`border-2 rounded flex min-w-[550px] min-h-[280px] items-center justify-center max-w-lg py-3 ${
+      className={`border-2 rounded flex lg:w-[550px] lg:h-[280px] items-center justify-center w-[300px] h-[350px] py-3 ${
         flip ? "border-primary" : ""
       }`}
     >

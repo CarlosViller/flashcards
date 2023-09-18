@@ -1,22 +1,31 @@
+import { MobileSearchContext } from "@/MobileSearchContext";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
   const router = useRouter();
+  const { mobileSearch, toggleMobileSearch } = useContext(MobileSearchContext);
 
   useEffect(() => {
-    if(router.pathname !== "/search") {
-      setQuery("")
+    if (router.pathname !== "/search") {
+      setQuery("");
     }
-  }, [router.pathname])
+  }, [router.pathname]);
 
   function handleSearch(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter") {
       router.push(`/search?q=${query}`);
+      closeMobileModalAfterSearch();
+    }
+  }
+
+  function closeMobileModalAfterSearch() {
+    if (mobileSearch) {
+      toggleMobileSearch();
     }
   }
 
@@ -30,7 +39,7 @@ export default function SearchBar() {
         placeholder="Search boxes"
         className="text-xs py-[4px] w-full"
       />
-      <Link href={`/search?q=${query}`}>
+      <Link onClick={closeMobileModalAfterSearch} href={`/search?q=${query}`}>
         <FontAwesomeIcon icon={faMagnifyingGlass} className="text-primary" />
       </Link>
     </section>

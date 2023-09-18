@@ -38,7 +38,7 @@ export default function CreateBox() {
     <>
       <section className="container flex flex-col items-center mx-auto gap-6 my-5">
         <div className="text-center">
-          <h2>Name of the box</h2>
+          <h2>Box name</h2>
           <Input value={boxName} setValue={setBoxName} />
         </div>
         <CardRoll

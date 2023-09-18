@@ -67,7 +67,7 @@ export default function SearchPage({ query }: Props) {
         </GridSection>
       ) : (
         <section className="flex flex-col items-center justify-center gap-2">
-          <h1 className="text-center mt-10 text-xl">
+          <h1 className="text-center mt-10 text-lg">
             {`No boxes found for ${query}`}
             <br />
             you can create the first box for this!

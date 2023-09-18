@@ -9,7 +9,7 @@ export default function Input({ label, value, setValue }: Props) {
     <>
       {label && <label htmlFor={label}>{label}</label>}
       <input
-        className="rounded border-primary border-2 px-2"
+        className="rounded border-primary lg:w-full w-[300px] border-2 px-2"
         {...(label ? { name: label } : {})}
         value={value}
         onChange={(e) => {
