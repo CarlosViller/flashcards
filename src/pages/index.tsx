@@ -62,7 +62,15 @@ export default function Root() {
           ))}
         </GridSection>
       ) : (
-        <h1 className="text-center mt-12">{`You don't have any card boxes, start creating one with the create button!`}</h1>
+        <section className="flex flex-col items-center justify-center gap-2">
+          <h1 className="text-center mt-12">{`You don't have any card boxes, start creating one with the create button!`}</h1>
+          <Link
+            href="/create"
+            className="create-button text-primary px-4 py-1 rounded-md border-primary border-2"
+          >
+            Create
+          </Link>
+        </section>
       )}
     </section>
   );
