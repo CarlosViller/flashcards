@@ -50,7 +50,7 @@ export default function Root() {
   }
 
   return (
-    <section className="mt-6 flex flex-col items-center page">
+    <section className="flex flex-col items-center page">
       {boxes.length > 0 ? (
         <GridSection title="Your boxes">
           {boxes.map((box) => (

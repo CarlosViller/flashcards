@@ -14,6 +14,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import Header from "@/components/shared/Header";
 import { MobileSearchProvider } from "@/MobileSearchContext";
 import MobileSearch from "@/components/MobileSearch";
+import { useMediaQuery } from "@/utils";
 config.autoAddCss = false;
 
 const baloo_2 = Baloo_2({ subsets: ["latin"] });
@@ -22,6 +23,8 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
+  const isMobile = useMediaQuery(500);
+
   return (
     <SessionProvider session={session}>
       <ToastProvider>
@@ -37,7 +40,7 @@ export default function App({
               <Component {...pageProps} />
               <ToastContainer
                 className="mt-14 text-xs"
-                position="top-right"
+                position={isMobile ? "bottom-right" : "top-right"}
                 autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
