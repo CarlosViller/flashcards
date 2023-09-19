@@ -30,7 +30,7 @@ function MobileLogin() {
       <h1 className="text-3xl font-semibold shadow-xl text-white bg-primary py-2 text-center">
         Kartu
       </h1>
-      <div className="mt-4">
+      <div className="mt-8">
         <Auth />
       </div>
     </section>

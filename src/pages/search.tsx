@@ -54,7 +54,7 @@ export default function SearchPage({ query }: Props) {
   if (loading) return <Loading />;
 
   return (
-    <>
+    <section className="page">
       {boxes.length !== 0 ? (
         <GridSection title={query}>
           {boxes.map((box) => (
@@ -80,7 +80,7 @@ export default function SearchPage({ query }: Props) {
           </Link>
         </section>
       )}
-    </>
+    </section>
   );
 }
 

@@ -9,7 +9,11 @@ interface Props extends SessionUser {
 }
 
 export default function CurrentUserProfilePage({ user, id }: Props) {
-  return <Profile user={user} id={id} />;
+  return (
+    <section className="page">
+      <Profile user={user} id={id} />
+    </section>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

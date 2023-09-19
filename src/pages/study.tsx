@@ -39,7 +39,7 @@ export default function StudyPage({ boxId }: Props) {
   if (!box) return <Spinner />;
 
   return (
-    <section className="mt-10">
+    <section className="mt-10 page">
       <h1 className="text-2xl text-primary text-center mb-2">{box.boxName}</h1>
       <section className="flex gap-4 justify-center items-center relative py-2">
         <button
@@ -50,7 +50,7 @@ export default function StudyPage({ boxId }: Props) {
           <FontAwesomeIcon icon={faArrowLeft} className="text-inherit" />
         </button>
 
-        <div className="min-w-[550px]">
+        <div className="lg:min-w-[550px]">
           <Card card={box.cards[currentCardIndex]} />
         </div>
         <button

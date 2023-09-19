@@ -74,31 +74,29 @@ export default function BoxPage({ boxId, user }: Props) {
     );
 
   return (
-    <>
-      <section className="px-6 mt-4">
-        <h1 className="text-2xl text-primary text-center">{box.boxName}</h1>
-        <section className="flex gap-4 items-center justify-center my-4">
-          {user.email === box.creatorEmail ? (
-            <>
-              <StartButton id={box.id} />
-              <Link className="btn-primary" href={`/boxes/edit/${boxId}`}>
-                Edit
-              </Link>
-              <button className="btn-primary" onClick={handleRemove}>
-                Remove
-              </button>
-            </>
-          ) : (
-            <button onClick={handleAdd}>Add</button>
-          )}
-        </section>
-        <section className="grid lg:grid-cols-4 grid-cols-1 gap-4 mt-6">
-          {box.cards.map((card) => (
-            <Card key={card.id} card={card} />
-          ))}
-        </section>
+    <section className="px-6 page">
+      <h1 className="text-2xl text-primary text-center">{box.boxName}</h1>
+      <section className="flex gap-4 items-center justify-center my-4">
+        {user.email === box.creatorEmail ? (
+          <>
+            <StartButton id={box.id} />
+            <Link className="btn-primary" href={`/boxes/edit/${boxId}`}>
+              Edit
+            </Link>
+            <button className="btn-primary" onClick={handleRemove}>
+              Remove
+            </button>
+          </>
+        ) : (
+          <button onClick={handleAdd}>Add</button>
+        )}
       </section>
-    </>
+      <section className="place-items-center grid lg:grid-cols-4 grid-cols-1 gap-4 mt-6">
+        {box.cards.map((card) => (
+          <Card key={card.id} card={card} />
+        ))}
+      </section>
+    </section>
   );
 }
 

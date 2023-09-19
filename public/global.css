@@ -21,6 +21,9 @@ textarea:focus,
 button:focus {
   outline: none;
 }
+.page {
+  @apply py-6
+}
 
 @keyframes spinner {
   0% {

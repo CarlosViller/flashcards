@@ -60,43 +60,33 @@ export default function EditPage({ boxId, user }: Props) {
   }
 
   if (!box) {
-    return (
-      <>
-        <h1>Box not found</h1>
-      </>
-    );
+    return <h1>Box not found</h1>;
   }
 
   if (user.email !== box?.creatorEmail) {
-    return (
-      <>
-        <div>You cannot edit this box</div>
-      </>
-    );
+    return <h1>You cannot edit this box</h1>;
   }
 
   return (
-    <>
-      <section className="container flex flex-col items-center mx-auto gap-6 mt-10">
-        <div className="text-center">
-          <h2>Name of the box</h2>
-          <Input value={boxName} setValue={setBoxName} />
-        </div>
-        <CardRoll
-          setCards={setEditableCards}
-          currentCardIndex={currentCardIndex}
-          setCurrentCardIndex={setCurrentCardIndex}
-          cards={editableCards}
-        />
-        <button
-          className="primary submit-box-btn"
-          disabled={boxName === ""}
-          onClick={handleSubmit}
-        >
-          Save
-        </button>
-      </section>
-    </>
+    <section className="container flex flex-col items-center mx-auto gap-6 page">
+      <div className="text-center">
+        <h2>Name of the box</h2>
+        <Input value={boxName} setValue={setBoxName} />
+      </div>
+      <CardRoll
+        setCards={setEditableCards}
+        currentCardIndex={currentCardIndex}
+        setCurrentCardIndex={setCurrentCardIndex}
+        cards={editableCards}
+      />
+      <button
+        className="primary submit-box-btn"
+        disabled={boxName === ""}
+        onClick={handleSubmit}
+      >
+        Save
+      </button>
+    </section>
   );
 }
 
