@@ -35,6 +35,7 @@ export default function SearchBar() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyUp={handleSearch}
+        autoFocus
         type="text"
         placeholder="Search boxes"
         className="text-xs py-[4px] w-full"
