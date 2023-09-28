@@ -62,7 +62,7 @@ export default function CardRoll({
 
   return (
     <div className="text-center">
-      <div className="flex gap-4 justify-center items-center relative py-2">
+      <div className="flex gap-2 justify-center items-center relative py-2">
         {cards.length > 1 && (
           <button onClick={deleteCard} className=" absolute top-0 right-0">
             <FontAwesomeIcon

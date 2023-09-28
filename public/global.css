@@ -13,6 +13,7 @@ html {
 }
 main {
   width: 100%;
+  padding: 0 10px;
 }
 
 input:focus,
@@ -22,7 +23,7 @@ button:focus {
   outline: none;
 }
 .page {
-  @apply py-6
+  @apply py-6;
 }
 
 @keyframes spinner {
