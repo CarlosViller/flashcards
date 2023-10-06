@@ -25,11 +25,31 @@ export default function App({
 }: AppProps) {
   const isMobile = useMediaQuery(500);
 
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL as string;
+
   return (
     <SessionProvider session={session}>
       <ToastProvider>
         <MobileSearchProvider>
           <Head>
+            <meta name="author" content="Carlos Villermosa" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta charSet="UTF-8" />
+            <meta
+              property="og:title"
+              content="Kartu - Create your own flashcards"
+            />
+            <meta
+              property="og:site_name"
+              content="Kartu - Create your own flashcards"
+            />
+            <meta property="og:url" content={baseURL} />
+            <meta
+              property="og:description"
+              content="A web app to create and share flashcards."
+            />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content={`${baseURL}/icon.png`} />
             <link rel="icon" href="/icon.png" />
             <title>Kartu - Create your own flashcards</title>
           </Head>
