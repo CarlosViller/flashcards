@@ -48,8 +48,12 @@ export default function App({
               property="og:description"
               content="A web app to create and share flashcards."
             />
+            <meta
+              property="description"
+              content="A web app to create and share flashcards."
+            />
             <meta property="og:type" content="website" />
-            <meta property="og:image" content={`${baseURL}/icon.png`} />
+            <meta property="og:image" content={`${baseURL}/og image.png`} />
             <link rel="icon" href="/icon.png" />
             <title>Kartu - Create your own flashcards</title>
           </Head>
